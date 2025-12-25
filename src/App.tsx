@@ -22,7 +22,7 @@ const App = () => {
 
     const tryPlay = () => {
       audio.muted = false;
-      audio.play().catch(() => {});
+      audio.play().catch(() => { });
     };
 
     if (audio) {
@@ -41,7 +41,6 @@ const App = () => {
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        {<PixelCursor />}
         {isLoading && (
           <div
             className="fixed inset-0 z-40"
