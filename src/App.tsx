@@ -6,13 +6,35 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import { useState } from "react";
 import LoadingScreen from "./components/sections/LoadingScreen";
+import HUD from "./components/HUD";
+import { useEffect, useRef, useState } from "react";
 
 const queryClient = new QueryClient();
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const audioRef = useRef(null);
+  const [userInteracted, setUserInteracted] = useState(false);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+
+    const tryPlay = () => {
+      audio.muted = false;
+      audio.play().catch(() => {});
+    };
+
+    if (audio) {
+      audio.play().catch(() => {
+        // Browser blocked autoplay
+        window.addEventListener("click", () => {
+          setUserInteracted(true);
+          tryPlay();
+        }, { once: true });
+      });
+    }
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -31,6 +53,17 @@ const App = () => {
             <LoadingScreen onLoadingComplete={() => setIsLoading(false)} />
           </div>
         )}
+        <PixelCursor />
+        <HUD />
+        <audio
+          ref={audioRef}
+          src="/minecraft.mp3"
+          autoPlay
+          loop
+          muted={!userInteracted}
+          playsInline
+          preload="auto"
+        />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
@@ -40,7 +73,7 @@ const App = () => {
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
-  );
+  )
 };
 
 export default App;
