@@ -15,7 +15,12 @@ export const Sponsors = () => {
     return (
         <section
             id="sponsors"
-            className="py-24 px-6 bg-mc-dirt relative overflow-hidden"
+            className="py-24 px-6 relative overflow-hidden
+           bg-gradient-to-b
+           from-[#2a1f14]
+           via-[#1b1f2a]
+           to-[#0b1220]
+           shadow-[inset_0_40px_80px_rgba(0,0,0,0.6)]"
         >
             <BgParticles variant="grass" count={15} />
 
@@ -38,7 +43,7 @@ export const Sponsors = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6 }}
                             viewport={{ once: true }}
-                            className="w-56 image-rendering-pixelated"
+                           className="w-56 image-rendering-pixelated brightness-90 contrast-95"
                         />
                     </div>
 
@@ -53,7 +58,8 @@ export const Sponsors = () => {
                                 viewport={{ once: true }}
                                 className="group"
                             >
-                                <div className="bg-[#C6C6C6] border-4 border-black p-4 shadow-[4px_4px_0_rgba(0,0,0,0.5)] flex items-center gap-4 relative">
+                                <div className="bg-[#B8B8B8]
+ border-4 border-black p-4 shadow-[4px_4px_0_rgba(0,0,0,0.5)] flex items-center gap-4 relative">
                                     {/* Trade Arrow */}
                                     <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20 group-hover:opacity-100 transition-opacity pointer-events-none">
                                         <span className="text-2xl font-bold">
@@ -73,7 +79,7 @@ export const Sponsors = () => {
                                         <h3 className="font-pixel text-sm text-[#373737] mb-1">
                                             {sponsor.name}
                                         </h3>
-                                        <span className="text-xs bg-yellow-600 text-white px-2 py-0.5 rounded font-mono uppercase">
+                                        <span className="text-xs bg-emerald-600/80 text-emerald-100 px-2 py-0.5 rounded font-mono uppercase">
                                             {sponsor.tier}
                                         </span>
                                     </div>
