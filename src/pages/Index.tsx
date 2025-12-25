@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { TimelineSection } from '@/components/sections/TimelineSection';
+import { BiomeSection } from '@/components/sections/BiomeSection';
 import { RegistrationSection } from '@/components/sections/RegistrationSection';
 import { FAQSection } from '@/components/sections/FAQSection';
 import { ContactSection } from '@/components/sections/ContactSection';
@@ -11,7 +12,7 @@ const Index = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['hero', 'timeline', 'registration', 'faqs', 'contact'];
+      const sections = ['hero', 'timeline', 'biomes', 'registration', 'faqs', 'contact'];
       const scrollPosition = window.scrollY + window.innerHeight / 3;
 
       for (const section of sections) {
@@ -34,6 +35,7 @@ const Index = () => {
     <div className="min-h-screen bg-background relative scanlines">
       <HeroSection />
       <TimelineSection />
+      <BiomeSection />
       <RegistrationSection />
       <FAQSection />
       <ContactSection />

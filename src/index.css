@@ -74,10 +74,28 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+    scrollbar-gutter: stable;
+  }
+
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'VT323', monospace;
     image-rendering: pixelated;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Prevent layout thrashing */
+  section, main, article {
+    contain: layout style;
+  }
+
+  /* Optimize images */
+  img {
+    display: block;
+    max-width: 100%;
   }
 
   h1, h2, h3, h4, h5, h6 {

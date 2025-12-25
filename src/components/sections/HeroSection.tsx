@@ -143,7 +143,7 @@ export function HeroSection() {
       
       {/* Scroll indicator */}
       <motion.div 
-        className="absolute bottom-24 left-1/2 -translate-x-1/2"
+        className="absolute bottom-24 left-0 right-0 mx-auto w-fit"
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
       >
