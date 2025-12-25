@@ -4,8 +4,8 @@ import { TimelineSection } from '@/components/sections/TimelineSection';
 import { RegistrationSection } from '@/components/sections/RegistrationSection';
 import { FAQSection } from '@/components/sections/FAQSection';
 import { ContactSection } from '@/components/sections/ContactSection';
+import { HowToParticipate } from '@/components/sections/HowToParticipate';
 import { HotbarNav } from '@/components/HotbarNav';
-
 const Index = () => {
   const [activeSection, setActiveSection] = useState('hero');
 
@@ -34,6 +34,7 @@ const Index = () => {
     <div className="min-h-screen bg-background relative scanlines">
       <HeroSection />
       <TimelineSection />
+      <HowToParticipate />
       <RegistrationSection />
       <FAQSection />
       <ContactSection />
