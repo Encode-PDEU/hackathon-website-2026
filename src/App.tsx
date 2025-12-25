@@ -6,12 +6,14 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import LoadingScreen from "./components/sections/LoadingScreen";
 import HUD from "./components/HUD";
 import { useEffect, useRef, useState } from "react";
 
 const queryClient = new QueryClient();
 
 const App = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const audioRef = useRef(null);
   const [userInteracted, setUserInteracted] = useState(false);
 
@@ -39,6 +41,18 @@ const App = () => {
       <TooltipProvider>
         <Toaster />
         <Sonner />
+        {<PixelCursor />}
+        {isLoading && (
+          <div
+            className="fixed inset-0 z-40"
+            style={{
+              background:
+                "radial-gradient(circle at center, #1a1a1a 0%, #000 70%)"
+            }}
+          >
+            <LoadingScreen onLoadingComplete={() => setIsLoading(false)} />
+          </div>
+        )}
         <PixelCursor />
         <HUD />
         <audio
