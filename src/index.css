@@ -80,7 +80,12 @@
     image-rendering: pixelated;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: 'Press Start 2P', cursive;
   }
 
@@ -93,10 +98,11 @@
 }
 
 @layer components {
+
   /* Pixel border utility */
   .pixel-border {
     border: 4px solid hsl(var(--border));
-    box-shadow: 
+    box-shadow:
       inset -4px -4px 0px 0px hsl(0 0% 0% / 0.3),
       inset 4px 4px 0px 0px hsl(0 0% 100% / 0.1),
       var(--shadow-pixel);
@@ -104,7 +110,7 @@
 
   .pixel-border-sm {
     border: 2px solid hsl(var(--border));
-    box-shadow: 
+    box-shadow:
       inset -2px -2px 0px 0px hsl(0 0% 0% / 0.3),
       inset 2px 2px 0px 0px hsl(0 0% 100% / 0.1),
       var(--shadow-pixel-sm);
@@ -112,31 +118,27 @@
 
   /* Block texture patterns */
   .texture-grass {
-    background: 
+    background:
       linear-gradient(180deg, hsl(var(--primary)) 0%, hsl(var(--primary)) 30%, hsl(var(--secondary)) 30%, hsl(var(--secondary)) 100%);
   }
 
   .texture-stone {
-    background: 
-      repeating-linear-gradient(
-        90deg,
+    background:
+      repeating-linear-gradient(90deg,
         hsl(var(--muted)) 0px,
         hsl(var(--muted)) 8px,
         hsl(220 15% 25%) 8px,
-        hsl(220 15% 25%) 16px
-      ),
-      repeating-linear-gradient(
-        0deg,
+        hsl(220 15% 25%) 16px),
+      repeating-linear-gradient(0deg,
         hsl(var(--muted)) 0px,
         hsl(var(--muted)) 8px,
         hsl(220 15% 22%) 8px,
-        hsl(220 15% 22%) 16px
-      );
+        hsl(220 15% 22%) 16px);
   }
 
   .texture-dirt {
     background: hsl(var(--secondary));
-    background-image: 
+    background-image:
       radial-gradient(circle at 20% 30%, hsl(30 40% 20%) 2px, transparent 2px),
       radial-gradient(circle at 80% 70%, hsl(30 40% 20%) 2px, transparent 2px),
       radial-gradient(circle at 50% 50%, hsl(30 60% 30%) 1px, transparent 1px);
@@ -148,13 +150,11 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      hsl(0 0% 0% / 0.03) 2px,
-      hsl(0 0% 0% / 0.03) 4px
-    );
+    background: repeating-linear-gradient(0deg,
+        transparent,
+        transparent 2px,
+        hsl(0 0% 0% / 0.03) 2px,
+        hsl(0 0% 0% / 0.03) 4px);
     pointer-events: none;
   }
 
@@ -165,14 +165,14 @@
     height: 48px;
     background: hsl(var(--card));
     border: 3px solid hsl(var(--border));
-    box-shadow: 
+    box-shadow:
       inset -3px -3px 0px 0px hsl(0 0% 0% / 0.4),
       inset 3px 3px 0px 0px hsl(0 0% 100% / 0.1);
   }
 
   .hotbar-slot-active {
     border-color: hsl(var(--foreground));
-    box-shadow: 
+    box-shadow:
       inset -3px -3px 0px 0px hsl(0 0% 0% / 0.4),
       inset 3px 3px 0px 0px hsl(0 0% 100% / 0.1),
       0 0 15px hsl(var(--foreground) / 0.3);
@@ -185,7 +185,7 @@
     background: hsl(var(--input));
     border: 3px solid hsl(var(--border));
     color: hsl(var(--foreground));
-    box-shadow: 
+    box-shadow:
       inset 3px 3px 0px 0px hsl(0 0% 0% / 0.3),
       inset -3px -3px 0px 0px hsl(0 0% 100% / 0.05);
   }
@@ -193,7 +193,7 @@
   .inventory-input:focus {
     outline: none;
     border-color: hsl(var(--primary));
-    box-shadow: 
+    box-shadow:
       inset 3px 3px 0px 0px hsl(0 0% 0% / 0.3),
       inset -3px -3px 0px 0px hsl(0 0% 100% / 0.05),
       0 0 10px hsl(var(--primary) / 0.3);
@@ -201,14 +201,14 @@
 
   /* Pixel text glow */
   .text-glow {
-    text-shadow: 
+    text-shadow:
       0 0 10px hsl(var(--primary-glow)),
       0 0 20px hsl(var(--primary-glow) / 0.5),
       0 0 30px hsl(var(--primary-glow) / 0.3);
   }
 
   .text-glow-gold {
-    text-shadow: 
+    text-shadow:
       0 0 10px hsl(var(--gold)),
       0 0 20px hsl(var(--gold) / 0.5);
   }
@@ -216,6 +216,7 @@
   /* Smooth scroll */
   html {
     scroll-behavior: smooth;
+    cursor: none;
   }
 }
 
