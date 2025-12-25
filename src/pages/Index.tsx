@@ -6,8 +6,8 @@ import { Sponsors } from '@/components/sections/Sponsors';
 import { RegistrationSection } from '@/components/sections/RegistrationSection';
 import { FAQSection } from '@/components/sections/FAQSection';
 import { ContactSection } from '@/components/sections/ContactSection';
+import { HowToParticipate } from '@/components/sections/HowToParticipate';
 import { HotbarNav } from '@/components/HotbarNav';
-
 const Index = () => {
   const [activeSection, setActiveSection] = useState('hero');
 
@@ -37,6 +37,7 @@ const Index = () => {
       <HeroSection />
       <BiomeSection />
       <TimelineSection />
+      <HowToParticipate />
       <Sponsors />
       <RegistrationSection />
       <FAQSection />
