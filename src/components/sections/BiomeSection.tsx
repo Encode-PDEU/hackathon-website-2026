@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
+// ... (keep themes array exactly the same) ...
 const themes = [
   {
     id: 'medtech',
@@ -75,6 +76,7 @@ function BiomeCard({
       onMouseEnter={() => onHover(theme.id)}
       onMouseLeave={() => onHover(null)}
       onClick={onSelect}
+      // Added h-full here to ensure cards in the same row match height
       className={cn(
         'relative group cursor-pointer transition-all duration-500 h-full',
         isOtherHovered && 'opacity-40',
@@ -82,11 +84,12 @@ function BiomeCard({
       style={{
         boxShadow: isSelected ? '0 0 0 3px hsl(var(--primary)) inset' : 'none',
       }}
-      whileHover={{ scale: 1.03, y: -8 }}
+      whileHover={{ scale: 1.03, y: -4 }} // Reduced hover lift slightly
     >
       <div
         className={cn(
-          'h-full overflow-hidden flex flex-col border-4 border-muted/30 bg-card shadow-[inset_0_-8px_0_rgba(0,0,0,0.3),inset_0_4px_0_rgba(255,255,255,0.1)] relative aspect-[3/4]',
+          // Removed aspect ratio constraint, removed min-h. Let content define height.
+          'h-full overflow-hidden flex flex-col border-4 border-muted/30 bg-card shadow-[inset_0_-8px_0_rgba(0,0,0,0.3),inset_0_4px_0_rgba(255,255,255,0.1)] relative',
           isSelected && 'border-primary',
         )}
       >
@@ -102,11 +105,14 @@ function BiomeCard({
             theme.color === 'bg-blue-400' && 'bg-blue-400',
           )}
         />
-        {/* Top 65% - Biome Illustration */}
-        <div className="relative h-40 sm:h-52 md:h-60 w-full overflow-hidden bg-muted/20">
+        
+        {/* IMAGE SECTION - CHANGED */}
+        {/* Using aspect-[16/9] ensures a wide, dominant image ratio regardless of actual size. */}
+        <div className="relative w-full aspect-[4/3] overflow-hidden bg-muted/20 shrink-0">
           <motion.img
             src={theme.image}
             alt={theme.title}
+            // object-cover ensures it fills the 16:9 box without stretching
             className="w-full h-full object-cover"
             loading="lazy"
             animate={{ scale: isHovered ? 1.1 : 1 }}
@@ -125,36 +131,37 @@ function BiomeCard({
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.5 }}
-                className="absolute top-4 right-4 bg-primary px-3 py-1 border-2 border-primary-foreground shadow-md z-20"
+                // Made badge smaller and positioned tighter
+                className="absolute top-2 right-2 bg-primary px-1.5 py-0.5 border-2 border-primary-foreground shadow-md z-20"
               >
-                <span className="font-pixel text-[10px] text-primary-foreground font-bold">BIOME SELECTED</span>
+                <span className="font-pixel text-[7px] sm:text-[8px] text-primary-foreground font-bold leading-none">SELECTED</span>
               </motion.div>
             )}
           </AnimatePresence>
 
           {isHovered && (
             <div className="absolute inset-0 pointer-events-none">
-              {[...Array(6)].map((_, i) => (
+              {[...Array(5)].map((_, i) => ( // Reduced particle count slightly
                 <motion.div
                   key={i}
-                  className="absolute w-1 h-1 bg-white/40"
+                  className="absolute w-0.5 h-0.5 sm:w-1 sm:h-1 bg-white/40"
                   initial={{ x: Math.random() * 100 + '%', y: '100%', opacity: 0 }}
                   animate={{
                     y: '-10%',
                     opacity: [0, 1, 0],
                     x: Math.random() * 100 + (Math.random() * 20 - 10) + '%',
                   }}
-                  transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, delay: i * 0.3 }}
+                  transition={{ duration: 1.5 + Math.random(), repeat: Number.POSITIVE_INFINITY, delay: i * 0.2 }}
                 />
               ))}
             </div>
           )}
         </div>
 
-        {/* Bottom 35% - Details */}
+        {/* DETAILS SECTION - CHANGED */}
         <div 
           className={cn(
-            'p-3 sm:p-4 md:p-6 flex flex-col justify-center flex-1 transition-colors duration-300',
+            'px-2 sm:px-3 py-2 sm:py-2 md:py-4 flex flex-col justify-center flex-1 transition-colors duration-300',
             theme.color === 'bg-emerald-500' && 'bg-emerald-950/40',
             theme.color === 'bg-yellow-500' && 'bg-yellow-950/40',
             theme.color === 'bg-emerald-600' && 'bg-emerald-950/40',
@@ -163,20 +170,23 @@ function BiomeCard({
             theme.color === 'bg-blue-400' && 'bg-blue-950/40',
           )}
         >
-          <h3 className="font-pixel text-sm sm:text-base md:text-lg text-foreground mb-1 sm:mb-2 group-hover:text-primary transition-colors">
+          <h3 className="font-pixel text-sm sm:text-base md:text-lg text-foreground mb-1 group-hover:text-primary transition-colors">
             {theme.title}
           </h3>
-          <p className="text-[10px] sm:text-xs text-muted-foreground italic tracking-wide uppercase">{theme.subtitle}</p>
+          <p className="text-[10px] sm:text-xs text-muted-foreground italic tracking-wide uppercase">
+            {theme.subtitle}
+          </p>
         </div>
 
         {/* Depth highlights */}
-        <div className="absolute top-0 left-0 w-full h-[4px] bg-white/10" />
-        <div className="absolute top-0 left-0 w-[4px] h-full bg-white/10" />
+        <div className="absolute top-0 left-0 w-full h-[3px] bg-white/10 pointer-events-none" />
+        <div className="absolute top-0 left-0 w-[3px] h-full bg-white/10 pointer-events-none" />
       </div>
     </motion.div>
   );
 }
 
+// ... (keep BiomeSection exactly the same) ...
 export function BiomeSection() {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -204,10 +214,10 @@ export function BiomeSection() {
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-14 md:mb-16">
           <h2 className="font-pixel text-xl sm:text-2xl md:text-3xl lg:text-4xl text-foreground mb-4 sm:mb-5 md:mb-6 uppercase tracking-wider">
-            Choose Your Biome
+            Choose Your Realm
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-sm sm:text-base md:text-lg leading-relaxed">
-            Every adventurer must choose their path. Each biome represents a different kind of challenge.
+            Every adventurer must choose their path. Each realm represents a different kind of challenge.
           </p>
         </div>
 
@@ -218,6 +228,7 @@ export function BiomeSection() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
+              // Important: kept h-full here so grid items stretch evenly
               className="h-full"
             >
               <BiomeCard
