@@ -34,8 +34,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background relative scanlines">
       <HeroSection />
-      <TimelineSection />
       <BiomeSection />
+      <TimelineSection />
       <RegistrationSection />
       <FAQSection />
       <ContactSection />
