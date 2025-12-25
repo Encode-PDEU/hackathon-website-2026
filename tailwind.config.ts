@@ -16,6 +16,7 @@ export default {
       fontFamily: {
         pixel: ['"Press Start 2P"', 'cursive'],
         retro: ['VT323', 'monospace'],
+        body: ['"Silkscreen"', 'cursive'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -67,6 +68,14 @@ export default {
           "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
+        },
+        mc: {
+          grass: "#4CAF50",
+          dirt: "#8D6E63",
+          stone: "#1F1F1F",
+          diamond: "#4EE6D6",
+          night: "#0B0E1A",
+          bg: "#050505",
         },
       },
       borderRadius: {
