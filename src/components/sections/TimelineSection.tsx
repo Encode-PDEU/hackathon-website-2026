@@ -32,10 +32,11 @@ export function TimelineSection() {
   return (
     <section
       id="timeline"
-      className="relative py-40 px-4 bg-black overflow-hidden select-none"
+      className="relative py-40 px-4 bg-[#000000] overflow-hidden select-none"
     >
       {/* Vignette */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.06),_transparent_65%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(0,0,0,0),_rgba(0,0,0,0.8)_70%)] pointer-events-none" />
+
 
       <div className="relative max-w-5xl mx-auto">
 
