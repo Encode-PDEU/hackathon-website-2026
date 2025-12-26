@@ -298,3 +298,35 @@
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--primary));
 }
+
+
+/* ============================= */
+/* TIMELINE READABILITY OVERRIDES */
+/* ============================= */
+
+#timeline {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, Helvetica, Arial, sans-serif;
+  image-rendering: auto;
+}
+
+#timeline h1,
+#timeline h2,
+#timeline h3,
+#timeline h4,
+#timeline h5,
+#timeline h6 {
+  font-family: inherit;
+  letter-spacing: normal;
+}
+
+#timeline p {
+  font-family: inherit;
+  letter-spacing: normal;
+  image-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+#timeline img {
+  image-rendering: auto;
+}
