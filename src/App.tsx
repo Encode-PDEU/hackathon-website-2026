@@ -53,7 +53,7 @@ const App = () => {
           </div>
         )}
         <PixelCursor />
-        <HUD />
+        {!isLoading && <HUD />}
         <audio
           ref={audioRef}
           src="/minecraft.mp3"
@@ -65,7 +65,7 @@ const App = () => {
         />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Index />} />
+            <Route path="/" element={<Index isLoading={isLoading} />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

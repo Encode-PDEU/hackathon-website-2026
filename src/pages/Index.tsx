@@ -8,7 +8,11 @@ import { FAQSection } from '@/components/sections/FAQSection';
 import { ContactSection } from '@/components/sections/ContactSection';
 import { HowToParticipate } from '@/components/sections/HowToParticipate';
 import { HotbarNav } from '@/components/HotbarNav';
-const Index = () => {
+interface IndexProps {
+  isLoading?: boolean;
+}
+
+const Index = ({ isLoading = false }: IndexProps) => {
   const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
@@ -42,7 +46,7 @@ const Index = () => {
       <RegistrationSection />
       <FAQSection />
       <ContactSection />
-      <HotbarNav activeSection={activeSection} />
+      {!isLoading && <HotbarNav activeSection={activeSection} />}
 
       {/* Bottom padding for hotbar */}
       <div className="h-24" />
