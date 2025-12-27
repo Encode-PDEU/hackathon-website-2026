@@ -13,10 +13,25 @@ const SPONSORS = [
     { name: "VPN Service", tier: "Iron", color: "bg-gray-300" },
 ];
 
+import { useState } from "react";
+
 export const Sponsors = () => {
+    const [isHovered, setIsHovered] = useState(false);
+    const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+        const y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+        setMousePos({ x, y });
+    };
+
     return (
         <section
             id="sponsors"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            onMouseMove={handleMouseMove}
             className="py-24 px-6 relative overflow-hidden
            bg-gradient-to-b
            from-[#2a1f14]
@@ -40,7 +55,7 @@ export const Sponsors = () => {
                     <div className="hidden lg:flex justify-center w-1/3 h-[500px]">
                         <Canvas shadows camera={{ position: [0, 0, 5], fov: 40 }}>
                             <Stage environment="city" intensity={0.6}>
-                                <VillagerModel />
+                                <VillagerModel isHovered={isHovered} mousePos={mousePos} />
                             </Stage>
                             <OrbitControls enableZoom={true} enablePan={false} maxPolarAngle={Math.PI / 2} minPolarAngle={Math.PI / 3} />
                         </Canvas>
