@@ -55,7 +55,7 @@ export const Sponsors = () => {
                             <ambientLight intensity={1.8} />
                             <pointLight position={[10, 10, 10]} intensity={1.5} />
                             <spotLight position={[-5, 5, 5]} intensity={1} />
-                            <Stage environment={null} intensity={1} contactShadow={{ opacity: 0.5, blur: 2 }}>
+                            <Stage environment={null} intensity={1} shadows="contact">
                                 <VillagerModel isHovered={isHovered} mousePos={mousePos} />
                             </Stage>
                             <OrbitControls enableZoom={true} enablePan={false} maxPolarAngle={Math.PI / 2} minPolarAngle={Math.PI / 3} />
