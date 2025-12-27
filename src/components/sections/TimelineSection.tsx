@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
 import { Calendar, Rocket, Trophy, Award } from 'lucide-react';
+import { Canvas } from '@react-three/fiber';
+import { MinecraftTorch } from '../3d/MinecraftTorch';
 
 const timelineEvents = [
   {
@@ -28,6 +30,27 @@ const timelineEvents = [
   },
 ];
 
+// Individual torch component with its own canvas
+function TorchCanvas({ side }: { side: 'left' | 'right' }) {
+  return (
+    <div className="w-28 h-44 pointer-events-none">
+      <Canvas
+        camera={{ position: [0, 0, 3], fov: 50 }}
+        gl={{ alpha: true }}
+        style={{ background: 'transparent' }}
+      >
+        <ambientLight intensity={1.5} />
+        <directionalLight position={[2, 2, 2]} intensity={1} />
+        <MinecraftTorch
+          position={[0, -0.5, 0]}
+          scale={1.1}
+          rotation={[0, side === 'left' ? 0.3 : -0.3, side === 'left' ? -Math.PI / 6 : Math.PI / 6]}
+        />
+      </Canvas>
+    </div>
+  );
+}
+
 export function TimelineSection() {
   return (
     <section
@@ -36,7 +59,6 @@ export function TimelineSection() {
     >
       {/* Vignette */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(0,0,0,0),_rgba(0,0,0,0.8)_70%)] pointer-events-none" />
-
 
       <div className="relative max-w-5xl mx-auto">
 
@@ -74,6 +96,7 @@ export function TimelineSection() {
         <div className="relative z-10 flex flex-col items-center gap-28">
           {timelineEvents.map((event, index) => {
             const Icon = event.icon;
+            const isLeft = index % 2 === 0; // Alternating: 0=left, 1=right, 2=left, 3=right
 
             return (
               <motion.div
@@ -82,10 +105,17 @@ export function TimelineSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.12 }}
-                className="relative flex justify-center w-full"
+                className="relative flex justify-center w-full items-start"
               >
                 {/* Chain */}
                 <div className="absolute -top-24 left-1/2 h-24 w-[2px] bg-[#5a3e26] -translate-x-1/2" />
+
+                {/* Left Torch */}
+                {isLeft && (
+                  <div className="absolute -left-8 top-0 z-20">
+                    <TorchCanvas side="left" />
+                  </div>
+                )}
 
                 {/* SIGN */}
                 <motion.div
@@ -123,6 +153,13 @@ export function TimelineSection() {
                     </p>
                   </div>
                 </motion.div>
+
+                {/* Right Torch */}
+                {!isLeft && (
+                  <div className="absolute -right-8 top-0 z-20">
+                    <TorchCanvas side="right" />
+                  </div>
+                )}
 
                 {/* Node */}
               </motion.div>
