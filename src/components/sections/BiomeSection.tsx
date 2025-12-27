@@ -79,7 +79,7 @@ function BiomeCard({
       onClick={onSelect}
       // Added h-full here to ensure cards in the same row match height
       className={cn(
-        'relative group cursor-pointer transition-all duration-500 h-full',
+        'relative group cursor-pointer transition-all duration-500 h-full sign',
         isOtherHovered && 'opacity-40',
       )}
       style={{
@@ -89,20 +89,14 @@ function BiomeCard({
     >
       <MinecraftPanel
         className={cn(
-          'h-full overflow-hidden flex flex-col relative',
+          'sign h-full overflow-hidden flex flex-col relative',
           isSelected && 'ring-2 ring-primary'
         )}
       >
         {/* Tinted background overlay */}
         <div
           className={cn(
-            'absolute inset-0 pointer-events-none opacity-5 transition-opacity duration-300',
-            theme.color === 'bg-emerald-500' && 'bg-emerald-500',
-            theme.color === 'bg-yellow-500' && 'bg-yellow-500',
-            theme.color === 'bg-emerald-600' && 'bg-emerald-600',
-            theme.color === 'bg-purple-500' && 'bg-purple-500',
-            theme.color === 'bg-red-700' && 'bg-red-700',
-            theme.color === 'bg-blue-400' && 'bg-blue-400',
+            'absolute inset-0 pointer-events-none opacity-5 transition-opacity duration-300'
           )}
         />
         
@@ -161,13 +155,7 @@ function BiomeCard({
         {/* DETAILS SECTION - CHANGED */}
         <div 
           className={cn(
-            'px-2 sm:px-3 py-2 sm:py-2 md:py-4 flex flex-col justify-center flex-1 transition-colors duration-300',
-            theme.color === 'bg-emerald-500' && 'bg-emerald-950/40',
-            theme.color === 'bg-yellow-500' && 'bg-yellow-950/40',
-            theme.color === 'bg-emerald-600' && 'bg-emerald-950/40',
-            theme.color === 'bg-purple-500' && 'bg-purple-950/40',
-            theme.color === 'bg-red-700' && 'bg-red-950/40',
-            theme.color === 'bg-blue-400' && 'bg-blue-950/40',
+            'px-2 sm:px-3 py-2 sm:py-2 md:py-4 flex flex-col justify-center flex-1 transition-colors duration-300'
           )}
         >
           <h3 className="font-pixel text-sm sm:text-base md:text-lg text-foreground mb-1 group-hover:text-primary transition-colors">

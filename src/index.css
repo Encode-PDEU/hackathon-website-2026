@@ -98,6 +98,12 @@
     background: transparent; /* HeroSection can overlay its own background */
   }
 
+  /* Helper Class */
+  .pixelated {
+    image-rendering: pixelated;
+    -ms-interpolation-mode: nearest-neighbor;
+  }
+
   /* Enforce Minecraft-like font across interactive elements and common UI roots */
   button,
   input,

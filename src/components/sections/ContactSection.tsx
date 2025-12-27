@@ -55,7 +55,7 @@ export function ContactSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <MinecraftPanel className="p-6">
+            <MinecraftPanel className="sign p-6">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 bg-muted flex items-center justify-center pixel-border-sm">
                   <MessageSquare className="w-5 h-5 text-primary" />
@@ -115,7 +115,7 @@ export function ContactSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <MinecraftPanel className="p-6">
+            <MinecraftPanel className="sign p-6">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 bg-muted flex items-center justify-center pixel-border-sm">
                   <span className="text-xl">🌐</span>

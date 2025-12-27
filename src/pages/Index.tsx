@@ -10,6 +10,8 @@ import { HowToParticipate } from '@/components/sections/HowToParticipate';
 import { HotbarNav } from '@/components/HotbarNav';
 import { PrizeSection } from '@/components/sections/PrizeSection';
 import { Crew } from '@/components/sections/CrewSection';
+import { DimensionLayer } from '@/components/DimensionLayer';
+
 interface IndexProps {
   isLoading?: boolean;
 }
@@ -39,35 +41,45 @@ const Index = ({ isLoading = false }: IndexProps) => {
   }, []);
 
   return (
-    <div className="min-h-screen relative scanlines">
-      <HeroSection />
-      {/* Stone texture container for all sections below Hero */}
-      <div
-        className="relative"
-        style={{
-          backgroundImage: "url('/imgs/blocks/stone.png')",
-          backgroundRepeat: 'repeat',
-          backgroundSize: '128px 128px',
-          imageRendering: 'pixelated'
-        }}
-      >
-        <div className="absolute inset-0 bg-black/25 pointer-events-none" />
-        <div className="relative z-10">
-          <BiomeSection />
-          <TimelineSection />
-          <PrizeSection />
-          <HowToParticipate />
+    <main className="font-minecraft text-white overflow-x-hidden">
+      {/* LAYER 1: OVERWORLD (Sky + Surface) */}
+      <div className="relative">
+        <HeroSection /> {/* Video Background */}
+        <div className="bg-[#4C7C29]"> {/* Grass Green Background */}
           <Sponsors />
-          <Crew />
-          <FAQSection />
-          <ContactSection />
+          <HowToParticipate />
         </div>
+        {/* Transition into Nether: Obsidian Portal */}
+        <div 
+          className="h-16 w-full" 
+          style={{ 
+            backgroundImage: 'url(/imgs/blocks/obsidian.png)',
+            backgroundSize: '64px',
+            imageRendering: 'pixelated'
+          }} 
+        />
       </div>
+
+      {/* LAYER 2: THE NETHER (Hot, Red, Dangerous) */}
+      <DimensionLayer type="nether">
+        <BiomeSection />
+        <TimelineSection />
+        <Crew />
+      </DimensionLayer>
+
+      {/* LAYER 3: THE END (Dark, Void, Loot) */}
+      <DimensionLayer type="end">
+        <PrizeSection /> {/* 3D Chest goes here */}
+        <RegistrationSection />
+        <FAQSection />
+        <ContactSection />
+      </DimensionLayer>
+
       {!isLoading && <HotbarNav activeSection={activeSection} />}
 
       {/* Bottom padding for hotbar */}
       <div className="h-24" />
-    </div>
+    </main>
   );
 };
 

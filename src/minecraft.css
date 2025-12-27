@@ -157,10 +157,15 @@ Classes:
     background-size: cover;
     background-image: url('../imgs/ui/sign.png');
     white-space: pre-line;
-    color: #000;
+    color: #000 !important;
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
+}
+
+.sign * {
+    color: #000 !important;
+    text-shadow: none !important;
 }
 
 

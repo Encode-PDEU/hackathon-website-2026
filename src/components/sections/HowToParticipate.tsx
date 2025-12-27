@@ -114,7 +114,7 @@ const MinecraftCard: React.FC<StepData> = ({ number, title, description, icon: I
     whileHover={{ y: -16, scale: 1.02, transition: { duration: 0.2 } }}
   >
     {/* Wooden Block Panel using MinecraftPanel */}
-    <MinecraftPanel className="p-6 w-full h-full flex flex-col items-center text-center relative">
+    <MinecraftPanel className="sign p-6 w-full h-full flex flex-col items-center text-center relative">
       {/* Floating Icon Area */}
       <motion.div variants={floatIcon} animate="animate" className="mb-4 relative">
         <div className="w-20 h-20 bg-[#362211] border-2 border-[#5d4024] flex items-center justify-center shadow-inner">

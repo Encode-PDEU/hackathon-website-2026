@@ -96,7 +96,7 @@ export function RegistrationSection() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
         >
-          <MinecraftPanel className="p-6 sm:p-8">
+          <MinecraftPanel className="sign p-6 sm:p-8">
             <div className="text-center mb-6">
               <span className="font-pixel text-xs sm:text-sm text-muted-foreground">
                 ═══ REGISTRATION INVENTORY ═══
@@ -216,7 +216,7 @@ export function RegistrationSection() {
                 exit={{ scale: 0, rotate: 10 }}
                 transition={{ type: 'spring', stiffness: 200 }}
               >
-                <MinecraftPanel className="p-8 text-center max-w-md w-full">
+                <MinecraftPanel className="sign p-8 text-center max-w-md w-full">
                   <motion.div
                     animate={{ 
                       y: [0, -10, 0],

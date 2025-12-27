@@ -97,7 +97,7 @@ export function TimelineSection() {
                   }}
                   style={{ transformOrigin: 'top center' }}
                 >
-                  <MinecraftPanel className="px-4 py-6 flex flex-col items-center justify-center gap-2 text-center">
+                  <MinecraftPanel className="sign px-4 py-6 flex flex-col items-center justify-center gap-2 text-center">
                     <div className="flex items-center gap-3">
                       <Icon className="w-7 h-7" />
                       <h3 className="text-2xl font-bold">

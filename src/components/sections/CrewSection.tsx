@@ -34,7 +34,7 @@ export const Crew = () => {
                         >
                             {/* 3D Head Effect */}
                             <div className="relative w-32 h-32 transform-style-3d group-hover:-translate-y-4 transition-transform duration-300">
-                                <MinecraftPanel className="absolute inset-0 p-0 overflow-hidden">
+                                <MinecraftPanel className="sign absolute inset-0 p-0 overflow-hidden">
                                     <img
                                         src={member.image}
                                         alt={member.name}
@@ -43,7 +43,7 @@ export const Crew = () => {
                                 </MinecraftPanel>
                                 {/* Name Tag */}
                                 <div className="absolute -top-12 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                                    <MinecraftPanel className="px-3 py-1">
+                                    <MinecraftPanel className="sign px-3 py-1">
                                         <span className="font-pixel text-white text-xs">{member.role}</span>
                                     </MinecraftPanel>
                                 </div>
