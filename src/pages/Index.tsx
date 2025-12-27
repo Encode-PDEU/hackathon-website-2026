@@ -6,10 +6,15 @@ import { Sponsors } from '@/components/sections/Sponsors';
 import { RegistrationSection } from '@/components/sections/RegistrationSection';
 import { FAQSection } from '@/components/sections/FAQSection';
 import { ContactSection } from '@/components/sections/ContactSection';
+import { HowToParticipate } from '@/components/sections/HowToParticipate';
 import { HotbarNav } from '@/components/HotbarNav';
 import { PrizeSection } from '@/components/sections/PrizeSection';
+import { Crew } from '@/components/sections/CrewSection';
+interface IndexProps {
+  isLoading?: boolean;
+}
 
-const Index = () => {
+const Index = ({ isLoading = false }: IndexProps) => {
   const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
@@ -39,11 +44,13 @@ const Index = () => {
       <BiomeSection />
       <TimelineSection />
       <PrizeSection />
+      <HowToParticipate />
       <Sponsors />
+      <Crew />
       <RegistrationSection />
       <FAQSection />
       <ContactSection />
-      <HotbarNav activeSection={activeSection} />
+      {!isLoading && <HotbarNav activeSection={activeSection} />}
 
       {/* Bottom padding for hotbar */}
       <div className="h-24" />
