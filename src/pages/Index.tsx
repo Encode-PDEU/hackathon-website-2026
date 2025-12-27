@@ -47,7 +47,7 @@ const Index = ({ isLoading = false }: IndexProps) => {
       <HowToParticipate />
       <Sponsors />
       <Crew />
-      <RegistrationSection />
+      {/* <RegistrationSection /> */}
       <FAQSection />
       <ContactSection />
       {!isLoading && <HotbarNav activeSection={activeSection} />}
