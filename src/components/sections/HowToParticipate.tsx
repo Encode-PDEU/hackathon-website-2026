@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, Variants } from 'framer-motion';
 import { BookOpen, Users, Box, Presentation, LucideIcon } from 'lucide-react';
+import { MinecraftPanel } from '../MinecraftPanel';
 
 // --- TYPES ---
 interface StepData {
@@ -62,6 +63,13 @@ const textures = {
     backgroundSize: '12px 12px',
     imageRendering: 'pixelated' as const,
   },
+  // Ground using actual grass-side.png texture
+  groundGrassSide: {
+    backgroundImage: "url('/imgs/blocks/grass-side.png')",
+    backgroundRepeat: 'repeat',
+    backgroundSize: '128px 128px',
+    imageRendering: 'pixelated' as const,
+  },
 };
 
 // --- ANIMATIONS ---
@@ -105,17 +113,8 @@ const MinecraftCard: React.FC<StepData> = ({ number, title, description, icon: I
     className="relative z-20 flex flex-col items-center h-full group"
     whileHover={{ y: -16, scale: 1.02, transition: { duration: 0.2 } }}
   >
-    {/* Wooden Block Panel */}
-    <div 
-      className="p-6 w-full h-full flex flex-col items-center text-center relative"
-      style={textures.sprucePlanks}
-    >
-      {/* Corner Bolts */}
-      <div className="absolute top-1 left-1 w-2 h-2 bg-[#25150a]" />
-      <div className="absolute top-1 right-1 w-2 h-2 bg-[#25150a]" />
-      <div className="absolute bottom-1 left-1 w-2 h-2 bg-[#25150a]" />
-      <div className="absolute bottom-1 right-1 w-2 h-2 bg-[#25150a]" />
-
+    {/* Wooden Block Panel using MinecraftPanel */}
+    <MinecraftPanel className="p-6 w-full h-full flex flex-col items-center text-center relative">
       {/* Floating Icon Area */}
       <motion.div variants={floatIcon} animate="animate" className="mb-4 relative">
         <div className="w-20 h-20 bg-[#362211] border-2 border-[#5d4024] flex items-center justify-center shadow-inner">
@@ -159,7 +158,7 @@ const MinecraftCard: React.FC<StepData> = ({ number, title, description, icon: I
       >
         {description}
       </p>
-    </div>
+    </MinecraftPanel>
   </motion.div>
 );
 
@@ -175,8 +174,7 @@ export function HowToParticipate() {
   return (
     <section 
       className="relative pb-12 pt-24 overflow-hidden flex flex-col" 
-      id="participate"
-      style={{ backgroundColor: 'rgb(15, 21, 35)' }}
+      id="how-to-participate"
     >
       
       {/* 1. TITLE (Command Block Style with Block Drop Animation) */}
@@ -233,24 +231,9 @@ export function HowToParticipate() {
           </motion.div>
         </div>
 
-        {/* 3. REDUCED HEIGHT GROUND */}
+        {/* 3. Ground using grass-side.png texture */}
         <div className="relative w-full z-10">
-          {/* Top Green Layer */}
-          <div className="w-full h-8 relative" style={textures.grassTop}>
-             <div 
-               className="absolute -bottom-4 left-0 w-full h-4"
-               style={textures.grassSideDrip}
-             />
-          </div>
-
-          {/* Dirt Body */}
-          <div 
-            className="w-full h-24" 
-            style={textures.dirt}
-          >
-             {/* Fade into background color */}
-             <div className="w-full h-full bg-gradient-to-b from-transparent to-[rgb(15,21,35)]" />
-          </div>
+          <div className="w-full h-24" style={textures.groundGrassSide} />
         </div>
 
       </div>

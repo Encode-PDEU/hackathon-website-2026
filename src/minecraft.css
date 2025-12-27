@@ -158,6 +158,9 @@ Classes:
     background-image: url('../imgs/ui/sign.png');
     white-space: pre-line;
     color: #000;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
 }
 
 
@@ -467,6 +470,93 @@ Classes:
 
 .markdown code {
     padding: 0 0.2rem;
+}
+
+/* Modern Minecraft UI Components using 9-slice scaling */
+
+/* MinecraftPanel - Universal Card Component */
+.mc-panel {
+    --zoom: 10;
+    border-width: calc(var(--block-size) / var(--zoom));
+    border-image: url('/imgs/ui/panel.png');
+    border-image-width: calc(var(--block-size) / var(--zoom));
+    border-image-slice: 43% 43% fill;
+    border-image-repeat: stretch;
+    background-color: transparent;
+    image-rendering: pixelated;
+    display: block;
+}
+
+/* MinecraftButton - Clickable Components */
+.mc-button {
+    --zoom: 10;
+    user-select: none;
+    cursor: pointer;
+    image-rendering: pixelated;
+    background-image: url('/imgs/ui/button-inside.png');
+    background-size: cover;
+    border-width: calc(var(--block-size) / var(--zoom));
+    border-image: url('/imgs/ui/button-border.png');
+    border-image-width: calc(var(--block-size) / var(--zoom));
+    border-image-slice: 10% 3%;
+    border-image-repeat: stretch;
+    color: #d1d5db;
+    text-shadow: 2px 2px #222;
+    font-family: 'Minecraft', monospace;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    transition: filter 0.15s ease;
+}
+
+.mc-button:hover {
+    background-image: url('/imgs/ui/button-inside-hover.png');
+    border-image: url('/imgs/ui/button-border-hover.png');
+    color: #fef08a;
+    filter: brightness(1.1);
+}
+
+.mc-button:active {
+    background-image: url('/imgs/ui/button-inside-active.png');
+    border-image: url('/imgs/ui/button-border-active.png');
+    color: #a8a29e;
+    filter: brightness(0.8);
+}
+
+/* MinecraftInput - Text Input Fields */
+.mc-input {
+    --zoom: 24;
+    border-width: calc(var(--block-size) / var(--zoom));
+    border-image: url('/imgs/ui/anvil-textbox.png');
+    border-image-width: calc(var(--block-size) / var(--zoom));
+    border-image-slice: 33.5% 33.5% fill;
+    border-image-repeat: stretch;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    font-family: 'Minecraft', monospace;
+    padding: 0.5rem;
+    image-rendering: pixelated;
+}
+
+.mc-input:focus {
+    outline: none;
+    background-color: #2a2a2a;
+    border-image: url('/imgs/ui/anvil-textbox-active.png');
+    border-image-width: calc(var(--block-size) / var(--zoom));
+    border-image-slice: 33.5% 33.5% fill;
+    border-image-repeat: stretch;
+}
+
+.mc-input::placeholder {
+    color: #666666;
+}
+
+select.mc-input {
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 8"><path d="M0 0l6 8 6-8H0z" fill="%23ffffff"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
 }
 
 .table, .markdown table {

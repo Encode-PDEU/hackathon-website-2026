@@ -1,5 +1,6 @@
 import { motion, HTMLMotionProps } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { useMinecraftSound } from '@/hooks/useMinecraftSound';
 
 interface PixelButtonProps extends HTMLMotionProps<'button'> {
   variant?: 'primary' | 'secondary' | 'gold' | 'danger';
@@ -7,11 +8,12 @@ interface PixelButtonProps extends HTMLMotionProps<'button'> {
   children: React.ReactNode;
 }
 
+/* Hardcore MC button styling overrides */
 const variantStyles = {
-  primary: 'bg-primary text-primary-foreground hover:bg-primary/90',
-  secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/90',
-  gold: 'bg-gold text-gold-foreground hover:bg-gold/90',
-  danger: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
+  primary: '',
+  secondary: '',
+  gold: '',
+  danger: '',
 };
 
 const sizeStyles = {
@@ -27,22 +29,29 @@ export function PixelButton({
   className,
   ...props
 }: PixelButtonProps) {
+  const { play } = useMinecraftSound(0.6);
+
+  const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    if (props.onClick) props.onClick(e);
+    play();
+  };
   return (
     <motion.button
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      whileHover={{ scale: 1.03 }}
+      whileTap={{ scale: 0.97 }}
       className={cn(
-        'font-pixel relative inline-flex items-center justify-center',
-        'border-4 border-border',
-        'transition-all duration-150',
-        variantStyles[variant],
+        'font-pixel relative inline-flex items-center justify-center select-none',
+        'transition-all duration-100',
         sizeStyles[size],
-        'shadow-pixel hover:shadow-glow',
-        'before:absolute before:inset-0 before:border-t-4 before:border-l-4 before:border-white/20',
-        'after:absolute after:inset-0 after:border-b-4 after:border-r-4 after:border-black/30',
+        'transform active:translate-y-[2px]',
+        'border-2 border-black',
+        'bg-[#D0D0D0] hover:bg-[#bcbcff] active:bg-[#a0a0a0]',
+        'shadow-[inset_2px_2px_0_#FFFFFF,inset_-2px_-2px_0_#555555]',
+        'active:shadow-[inset_2px_2px_0_#555555,inset_-2px_-2px_0_#FFFFFF]',
         className
       )}
       {...props}
+      onClick={handleClick}
     >
       <span className="relative z-10">{children}</span>
     </motion.button>

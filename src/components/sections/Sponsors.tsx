@@ -15,12 +15,7 @@ export const Sponsors = () => {
     return (
         <section
             id="sponsors"
-            className="py-24 px-6 relative overflow-hidden
-           bg-gradient-to-b
-           from-[#2a1f14]
-           via-[#1b1f2a]
-           to-[#0b1220]
-           shadow-[inset_0_40px_80px_rgba(0,0,0,0.6)]"
+            className="py-24 px-6 relative overflow-hidden"
         >
             <BgParticles variant="grass" count={15} />
 

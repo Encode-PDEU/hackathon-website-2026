@@ -1,14 +1,15 @@
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { Sword, Clock, Coins, Scroll, HelpCircle, Mail } from 'lucide-react';
+import { useMinecraftSound } from '@/hooks/useMinecraftSound';
 
 const navItems = [
-  { id: 'hero', icon: Sword, label: 'Home', color: 'text-primary' },
-  { id: 'prizes', icon: Coins, label: 'Prizes', color: 'text-gold' },
-  { id: 'timeline', icon: Clock, label: 'Timeline', color: 'text-gold' },
-  { id: 'registration', icon: Scroll, label: 'Register', color: 'text-accent' },
-  { id: 'faqs', icon: HelpCircle, label: 'FAQs', color: 'text-primary' },
-  { id: 'contact', icon: Mail, label: 'Contact', color: 'text-gold' },
+  { id: 'hero', src: '/imgs/items/diamond-sword.png', label: 'Home' },
+  { id: 'biomes', src: '/imgs/items/compass-up.png', label: 'Biomes' },
+  { id: 'timeline', src: '/imgs/items/clock.png', label: 'Timeline' },
+  { id: 'prizes', src: '/imgs/items/emerald.png', label: 'Prizes' },
+  { id: 'registration', src: '/imgs/items/book-writable.png', label: 'Register' },
+  { id: 'faqs', src: '/imgs/items/book-enchanted.png', label: 'FAQs' },
+  { id: 'contact', src: '/imgs/items/map-filled.png', label: 'Contact' },
 ];
 
 interface HotbarNavProps {
@@ -16,6 +17,7 @@ interface HotbarNavProps {
 }
 
 export function HotbarNav({ activeSection }: HotbarNavProps) {
+  const { play } = useMinecraftSound(0.4);
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -32,13 +34,14 @@ export function HotbarNav({ activeSection }: HotbarNavProps) {
       <div className="flex flex-col items-center">
         <div className="flex gap-1 p-2 bg-card/95 backdrop-blur-sm pixel-border">
           {navItems.map((item, index) => {
-            const Icon = item.icon;
             const isActive = activeSection === item.id;
             
             return (
               <motion.button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
+                onMouseEnter={() => play()}
+                onClickCapture={() => play()}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 initial={{ opacity: 0, y: 20 }}
@@ -50,11 +53,11 @@ export function HotbarNav({ activeSection }: HotbarNavProps) {
                 )}
                 title={item.label}
               >
-                <Icon 
-                  className={cn(
-                    'w-6 h-6 transition-colors',
-                    isActive ? item.color : 'text-muted-foreground'
-                  )} 
+                <img
+                  src={item.src}
+                  alt={item.label}
+                  className={cn('w-8 h-8 pixelated')}
+                  draggable={false}
                 />
                 {isActive && (
                   <motion.div

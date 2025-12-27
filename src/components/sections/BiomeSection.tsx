@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { MinecraftPanel } from '@/components/MinecraftPanel';
 
 // ... (keep themes array exactly the same) ...
 const themes = [
@@ -86,11 +87,10 @@ function BiomeCard({
       }}
       whileHover={{ scale: 1.03, y: -4 }} // Reduced hover lift slightly
     >
-      <div
+      <MinecraftPanel
         className={cn(
-          // Removed aspect ratio constraint, removed min-h. Let content define height.
-          'h-full overflow-hidden flex flex-col border-4 border-muted/30 bg-card shadow-[inset_0_-8px_0_rgba(0,0,0,0.3),inset_0_4px_0_rgba(255,255,255,0.1)] relative',
-          isSelected && 'border-primary',
+          'h-full overflow-hidden flex flex-col relative',
+          isSelected && 'ring-2 ring-primary'
         )}
       >
         {/* Tinted background overlay */}
@@ -181,7 +181,7 @@ function BiomeCard({
         {/* Depth highlights */}
         <div className="absolute top-0 left-0 w-full h-[3px] bg-white/10 pointer-events-none" />
         <div className="absolute top-0 left-0 w-[3px] h-full bg-white/10 pointer-events-none" />
-      </div>
+      </MinecraftPanel>
     </motion.div>
   );
 }
@@ -198,18 +198,7 @@ export function BiomeSection() {
         'relative py-16 sm:py-20 md:py-24 overflow-hidden transition-colors duration-700 ease-in-out',
       )}
     >
-      <div
-        className={cn(
-          'absolute inset-0 opacity-10 pointer-events-none transition-colors duration-700',
-          hoveredId === 'medtech' && 'bg-emerald-500',
-          hoveredId === 'fintech' && 'bg-yellow-500',
-          hoveredId === 'social' && 'bg-emerald-600',
-          hoveredId === 'aiml' && 'bg-purple-500',
-          hoveredId === 'cybersecurity' && 'bg-red-700',
-          hoveredId === 'innovation' && 'bg-blue-400',
-          !hoveredId && 'bg-transparent',
-        )}
-      />
+      {/* Removed section-wide overlay to keep shared background consistent */}
 
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-14 md:mb-16">

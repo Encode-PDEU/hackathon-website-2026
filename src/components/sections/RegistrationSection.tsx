@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PixelButton } from '../PixelButton';
+import { MinecraftPanel } from '../MinecraftPanel';
+import { MinecraftInput } from '../MinecraftInput';
 import { User, Mail, Users, Code, Sparkles, CheckCircle2, AlertCircle } from 'lucide-react';
 import { z } from 'zod';
 
@@ -70,12 +72,7 @@ export function RegistrationSection() {
   ];
 
   return (
-    <section id="registration" className="py-24 px-4 relative bg-gradient-to-b from-card/50 to-background">
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-1/4 w-16 h-16 bg-primary/10 rotate-45" />
-        <div className="absolute bottom-20 right-1/4 w-24 h-24 bg-gold/10 rotate-12" />
-      </div>
+    <section id="registration" className="py-24 px-4 relative">
 
       <div className="max-w-2xl mx-auto relative">
         <motion.div
@@ -98,13 +95,13 @@ export function RegistrationSection() {
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="bg-card pixel-border p-6 sm:p-8"
         >
-          <div className="text-center mb-6">
-            <span className="font-pixel text-xs sm:text-sm text-muted-foreground">
-              ═══ REGISTRATION INVENTORY ═══
-            </span>
-          </div>
+          <MinecraftPanel className="p-6 sm:p-8">
+            <div className="text-center mb-6">
+              <span className="font-pixel text-xs sm:text-sm text-muted-foreground">
+                ═══ REGISTRATION INVENTORY ═══
+              </span>
+            </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
             {inputFields.map((field, index) => {
@@ -123,13 +120,12 @@ export function RegistrationSection() {
                       <Icon className={`w-5 h-5 ${hasError ? 'text-destructive' : 'text-primary'}`} />
                     </div>
                     <div className="flex-1">
-                      <input
+                      <MinecraftInput
                         type={field.type}
                         name={field.name}
                         placeholder={field.placeholder}
                         value={formData[field.name]}
                         onChange={handleChange}
-                        className={`inventory-input w-full ${hasError ? 'border-destructive' : ''}`}
                       />
                     </div>
                   </div>
@@ -162,7 +158,7 @@ export function RegistrationSection() {
                   name="experience"
                   value={formData.experience}
                   onChange={handleChange}
-                  className={`inventory-input flex-1 cursor-pointer ${errors.experience ? 'border-destructive' : ''}`}
+                  className="mc-input flex-1 cursor-pointer"
                 >
                   <option value="">Select Experience Level</option>
                   <option value="beginner">🌱 Beginner (New to hackathons)</option>
@@ -202,6 +198,7 @@ export function RegistrationSection() {
           <p className="text-center font-retro text-muted-foreground mt-6 text-sm">
             🔒 Your data is safe with us. We never share your information.
           </p>
+          </MinecraftPanel>
         </motion.div>
 
         {/* Success Modal */}
@@ -218,37 +215,38 @@ export function RegistrationSection() {
                 animate={{ scale: 1, rotate: 0 }}
                 exit={{ scale: 0, rotate: 10 }}
                 transition={{ type: 'spring', stiffness: 200 }}
-                className="bg-card pixel-border p-8 text-center max-w-md w-full"
               >
-                <motion.div
-                  animate={{ 
-                    y: [0, -10, 0],
-                    rotate: [0, 5, -5, 0],
-                  }}
-                  transition={{ duration: 0.5, repeat: Infinity }}
-                  className="text-6xl mb-4"
-                >
-                  📦
-                </motion.div>
-                <h3 className="font-pixel text-lg text-primary mb-4 flex items-center justify-center gap-2">
-                  <CheckCircle2 className="w-6 h-6" />
-                  CHEST OPENED!
-                </h3>
-                <p className="font-retro text-xl text-muted-foreground">
-                  Registration received! Check your email for confirmation.
-                </p>
-                <div className="mt-4 flex justify-center gap-2">
-                  {[...Array(5)].map((_, i) => (
-                    <motion.span
-                      key={i}
-                      className="text-2xl"
-                      animate={{ y: [0, -5, 0] }}
-                      transition={{ delay: i * 0.1, repeat: Infinity, duration: 0.5 }}
-                    >
-                      ⭐
-                    </motion.span>
-                  ))}
-                </div>
+                <MinecraftPanel className="p-8 text-center max-w-md w-full">
+                  <motion.div
+                    animate={{ 
+                      y: [0, -10, 0],
+                      rotate: [0, 5, -5, 0],
+                    }}
+                    transition={{ duration: 0.5, repeat: Infinity }}
+                    className="text-6xl mb-4"
+                  >
+                    📦
+                  </motion.div>
+                  <h3 className="font-pixel text-lg text-primary mb-4 flex items-center justify-center gap-2">
+                    <CheckCircle2 className="w-6 h-6" />
+                    CHEST OPENED!
+                  </h3>
+                  <p className="font-retro text-xl text-muted-foreground">
+                    Registration received! Check your email for confirmation.
+                  </p>
+                  <div className="mt-4 flex justify-center gap-2">
+                    {[...Array(5)].map((_, i) => (
+                      <motion.span
+                        key={i}
+                        className="text-2xl"
+                        animate={{ y: [0, -5, 0] }}
+                        transition={{ delay: i * 0.1, repeat: Infinity, duration: 0.5 }}
+                      >
+                        ⭐
+                      </motion.span>
+                    ))}
+                  </div>
+                </MinecraftPanel>
               </motion.div>
             </motion.div>
           )}

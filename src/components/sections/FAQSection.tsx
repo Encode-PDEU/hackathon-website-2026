@@ -36,7 +36,7 @@ export function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section id="faqs" className="py-24 px-4 relative bg-gradient-to-b from-background to-card/30">
+    <section id="faqs" className="py-24 px-4 relative">
       {/* Decorative elements */}
       <div className="absolute top-10 right-10 opacity-30 hidden md:block">
         <PixelBlock type="diamond" size={32} />

@@ -200,8 +200,6 @@ export function PrizeSection() {
 
   return (
     <section id="prizes" className="relative py-16 sm:py-20 md:py-24 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background" />
-      <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top,_rgba(255,215,0,0.15),_transparent_45%)]" />
 
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-14 md:mb-16 max-w-3xl mx-auto">

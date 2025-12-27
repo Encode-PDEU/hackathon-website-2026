@@ -19,7 +19,7 @@ const Index = ({ isLoading = false }: IndexProps) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['hero', 'timeline', 'biomes', 'sponsors', 'registration', 'faqs', 'contact'];
+      const sections = ['hero', 'biomes', 'timeline', 'prizes', 'how-to-participate', 'sponsors', 'crew', 'registration', 'faqs', 'contact'];
       const scrollPosition = window.scrollY + window.innerHeight / 3;
 
       for (const section of sections) {
@@ -39,17 +39,30 @@ const Index = ({ isLoading = false }: IndexProps) => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background relative scanlines">
+    <div className="min-h-screen relative scanlines">
       <HeroSection />
-      <BiomeSection />
-      <TimelineSection />
-      <PrizeSection />
-      <HowToParticipate />
-      <Sponsors />
-      <Crew />
-      <RegistrationSection />
-      <FAQSection />
-      <ContactSection />
+      {/* Stone texture container for all sections below Hero */}
+      <div
+        className="relative"
+        style={{
+          backgroundImage: "url('/imgs/blocks/stone.png')",
+          backgroundRepeat: 'repeat',
+          backgroundSize: '128px 128px',
+          imageRendering: 'pixelated'
+        }}
+      >
+        <div className="absolute inset-0 bg-black/25 pointer-events-none" />
+        <div className="relative z-10">
+          <BiomeSection />
+          <TimelineSection />
+          <PrizeSection />
+          <HowToParticipate />
+          <Sponsors />
+          <Crew />
+          <FAQSection />
+          <ContactSection />
+        </div>
+      </div>
       {!isLoading && <HotbarNav activeSection={activeSection} />}
 
       {/* Bottom padding for hotbar */}

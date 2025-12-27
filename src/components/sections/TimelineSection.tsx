@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Calendar, Rocket, Trophy, Award } from 'lucide-react';
+import { MinecraftPanel } from '../MinecraftPanel';
 
 const timelineEvents = [
   {
@@ -32,10 +33,8 @@ export function TimelineSection() {
   return (
     <section
       id="timeline"
-      className="relative py-40 px-4 bg-[#000000] overflow-hidden select-none"
+      className="relative py-40 px-4 overflow-hidden select-none"
     >
-      {/* Vignette */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(0,0,0,0),_rgba(0,0,0,0.8)_70%)] pointer-events-none" />
 
 
       <div className="relative max-w-5xl mx-auto">
@@ -64,8 +63,8 @@ export function TimelineSection() {
             absolute left-1/2 top-[220px] bottom-0 w-[3px]
             -translate-x-1/2
             bg-gradient-to-b
-            from-[#f5c76b]
-            to-[#7a522d]
+            from-[#4ade80]
+            to-[#15803d]
             opacity-90
           "
         />
@@ -89,7 +88,7 @@ export function TimelineSection() {
 
                 {/* SIGN */}
                 <motion.div
-                  className="relative w-[440px]"
+                  className="relative"
                   animate={{ rotate: [-1.2, 1.2, -1.2] }}
                   transition={{
                     duration: 6,
@@ -98,30 +97,22 @@ export function TimelineSection() {
                   }}
                   style={{ transformOrigin: 'top center' }}
                 >
-                  <img
-                    src="/hanging-sign.png"
-                    alt="Timeline sign"
-                    draggable={false}
-                    className="w-full h-auto select-none pointer-events-none"
-                  />
-
-                  {/*FIXED TEXT POSITION */}
-                  <div className="absolute left-0 right-0 top-[46%] flex flex-col items-center px-12 text-center pointer-events-none">
-                    <div className="flex items-center gap-3 mb-4">
-                      <Icon className="w-7 h-7 text-[#2a1a0f]" />
-                      <h3 className="text-2xl font-bold text-[#1a0f08]">
+                  <MinecraftPanel className="px-4 py-6 flex flex-col items-center justify-center gap-2 text-center">
+                    <div className="flex items-center gap-3">
+                      <Icon className="w-7 h-7" />
+                      <h3 className="text-2xl font-bold">
                         {event.title}
                       </h3>
                     </div>
 
-                    <p className="text-lg text-[#3b2414] mb-6">
+                    <p className="text-lg mb-2">
                       {event.date}
                     </p>
 
-                    <p className="text-[22px] font-semibold text-[#120a05] leading-relaxed max-w-[340px] drop-shadow">
+                    <p className="text-base font-semibold leading-relaxed">
                       {event.description}
                     </p>
-                  </div>
+                  </MinecraftPanel>
                 </motion.div>
 
                 {/* Node */}
