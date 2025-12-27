@@ -43,7 +43,7 @@ export const Sponsors = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6 }}
                             viewport={{ once: true }}
-                           className="w-56 image-rendering-pixelated brightness-90 contrast-95"
+                            className="w-56 image-rendering-pixelated brightness-90 contrast-95"
                         />
                     </div>
 
@@ -54,9 +54,15 @@ export const Sponsors = () => {
                                 key={index}
                                 initial={{ scale: 0.9, opacity: 0 }}
                                 whileInView={{ scale: 1, opacity: 1 }}
-                                transition={{ delay: index * 0.1 }}
+                                whileHover={{ scale: 1.05, y: -5 }}
+                                transition={{
+                                    type: "spring",
+                                    stiffness: 400,
+                                    damping: 10,
+                                    delay: index * 0.1
+                                }}
                                 viewport={{ once: true }}
-                                className="group"
+                                className="group cursor-pointer"
                             >
                                 <div className="bg-[#B8B8B8]
  border-4 border-black p-4 shadow-[4px_4px_0_rgba(0,0,0,0.5)] flex items-center gap-4 relative">
