@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls, Stage } from "@react-three/drei";
 import { BgParticles } from "../ui/BgParticles";
-import traderImg from "../../assets/trader.png";
+import { VillagerModel } from "../3d/VillagerModel";
 
 const SPONSORS = [
     { name: "Tech Corp", tier: "Diamond", color: "bg-cyan-200" },
@@ -35,16 +37,13 @@ export const Sponsors = () => {
 
                 <div className="flex flex-col lg:flex-row items-end gap-12">
                     {/* Trader */}
-                    <div className="hidden lg:flex justify-center w-1/3">
-                        <motion.img
-                            src={traderImg}
-                            alt="Village Trader"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6 }}
-                            viewport={{ once: true }}
-                           className="w-56 image-rendering-pixelated brightness-90 contrast-95"
-                        />
+                    <div className="hidden lg:flex justify-center w-1/3 h-[500px]">
+                        <Canvas shadows camera={{ position: [0, 0, 5], fov: 40 }}>
+                            <Stage environment="city" intensity={0.6}>
+                                <VillagerModel />
+                            </Stage>
+                            <OrbitControls enableZoom={true} enablePan={false} maxPolarAngle={Math.PI / 2} minPolarAngle={Math.PI / 3} />
+                        </Canvas>
                     </div>
 
                     {/* Sponsor Stalls */}
