@@ -42,7 +42,7 @@ export function TimelineSection() {
 
         {/* HEADER */}
         <div className="text-center mb-32">
-          <h2 className="text-4xl font-semibold tracking-wide text-white mb-3">
+          <h2 className="text-4xl font-pixel text-white mb-3 tracking-wider">
             EVENT <span className="text-yellow-400">TIMELINE</span>
           </h2>
 
@@ -51,8 +51,8 @@ export function TimelineSection() {
           </p>
 
           <div className="flex flex-col items-center gap-2">
-            <div className="w-3 h-3 bg-yellow-400 shadow-[0_0_12px_rgba(255,215,0,0.9)]" />
-            <span className="text-xs tracking-widest text-yellow-400">
+            <div className="w-4 h-4 bg-yellow-400 shadow-[0_0_12px_rgba(255,215,0,0.9)]" />
+            <span className="text-[10px] font-pixel tracking-tighter text-yellow-400">
               START
             </span>
           </div>
@@ -109,16 +109,16 @@ export function TimelineSection() {
                   <div className="absolute left-0 right-0 top-[46%] flex flex-col items-center px-12 text-center pointer-events-none">
                     <div className="flex items-center gap-3 mb-4">
                       <Icon className="w-7 h-7 text-[#2a1a0f]" />
-                      <h3 className="text-2xl font-bold text-[#1a0f08]">
+                      <h3 className="text-2xl font-pixel text-[#1a0f08]">
                         {event.title}
                       </h3>
                     </div>
 
-                    <p className="text-lg text-[#3b2414] mb-6">
+                    <p className="text-lg font-retro text-[#3b2414] mb-6">
                       {event.date}
                     </p>
 
-                    <p className="text-[22px] font-semibold text-[#120a05] leading-relaxed max-w-[340px] drop-shadow">
+                    <p className="text-base font-minecraft text-[#120a05] leading-relaxed max-w-[340px]">
                       {event.description}
                     </p>
                   </div>
