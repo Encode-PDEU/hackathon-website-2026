@@ -1,4 +1,51 @@
 import type { Config } from "tailwindcss";
+import fs from "fs";
+import path from "path";
+
+// Minecraft image directories
+const BLOCK_DIR = "imgs/blocks";
+const ITEM_DIR = "imgs/items";
+const PAINTING_DIR = "imgs/paintings";
+const BLOCK_SPACING_MAX = 99;
+
+const background_obj: Record<string, string> = {};
+const spacing_obj: Record<string, string> = {};
+
+// Helper to safely read directories
+const safeReadDir = (dirPath: string): string[] => {
+  try {
+    return fs.readdirSync(path.join(process.cwd(), "public", dirPath));
+  } catch (e) {
+    console.warn(`Could not read directory: public/${dirPath}`);
+    return [];
+  }
+};
+
+// 1. Generate Block Backgrounds (e.g., 'bg-block-stone')
+safeReadDir(BLOCK_DIR).forEach((file) => {
+  if (file.startsWith(".")) return;
+  const name = `block-${file.split(".")[0]}`;
+  background_obj[name] = `url('/${BLOCK_DIR}/${file}')`;
+});
+
+// 2. Generate Item Backgrounds (e.g., 'bg-item-diamond')
+safeReadDir(ITEM_DIR).forEach((file) => {
+  if (file.startsWith(".")) return;
+  const name = `item-${file.split(".")[0]}`;
+  background_obj[name] = `url('/${ITEM_DIR}/${file}')`;
+});
+
+// 3. Generate Painting Backgrounds
+safeReadDir(PAINTING_DIR).forEach((file) => {
+  if (file.startsWith(".")) return;
+  const name = `painting-${file.split(".")[0]}`;
+  background_obj[name] = `url('/${PAINTING_DIR}/${file}')`;
+});
+
+// 4. Generate Spacings (e.g., 'h-1-block', 'w-4-block')
+Array.from({ length: BLOCK_SPACING_MAX }, (_, i) => i + 1).forEach((i) => {
+  spacing_obj[`${i}-block`] = `calc(var(--block-size) * ${i})`;
+});
 
 export default {
   darkMode: ["class"],
@@ -17,6 +64,9 @@ export default {
         pixel: ['"Press Start 2P"', 'cursive'],
         retro: ['VT323', 'monospace'],
         body: ['"Silkscreen"', 'cursive'],
+        minecraft: ['Minecraft', 'Arial', 'sans-serif'],
+        minecrafter: ['Minecrafter', 'Minecraft', 'Arial', 'sans-serif'],
+        mono: ['Monocraft', 'monospace'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -82,6 +132,16 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      backgroundImage: {
+        sign: "url('/imgs/ui/sign.png')",
+        ...background_obj, // Injects generated block, item, and painting classes
+      },
+      spacing: {
+        "1/16-block": "calc(var(--block-size) / 16)",
+        "1/8-block": "calc(var(--block-size) / 8)",
+        "1/2-block": "calc(var(--block-size) / 2)",
+        ...spacing_obj, // Injects generated block spacing (1-block to 99-block)
       },
       keyframes: {
         "accordion-down": {

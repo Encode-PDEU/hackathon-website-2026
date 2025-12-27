@@ -7,6 +7,7 @@ import { RegistrationSection } from '@/components/sections/RegistrationSection';
 import { FAQSection } from '@/components/sections/FAQSection';
 import { ContactSection } from '@/components/sections/ContactSection';
 import { HotbarNav } from '@/components/HotbarNav';
+import { PrizeSection } from '@/components/sections/PrizeSection';
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState('hero');
@@ -37,6 +38,7 @@ const Index = () => {
       <HeroSection />
       <BiomeSection />
       <TimelineSection />
+      <PrizeSection />
       <Sponsors />
       <RegistrationSection />
       <FAQSection />

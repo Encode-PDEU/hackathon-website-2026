@@ -1,9 +1,10 @@
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { Sword, Clock, Scroll, HelpCircle, Mail } from 'lucide-react';
+import { Sword, Clock, Coins, Scroll, HelpCircle, Mail } from 'lucide-react';
 
 const navItems = [
   { id: 'hero', icon: Sword, label: 'Home', color: 'text-primary' },
+  { id: 'prizes', icon: Coins, label: 'Prizes', color: 'text-gold' },
   { id: 'timeline', icon: Clock, label: 'Timeline', color: 'text-gold' },
   { id: 'registration', icon: Scroll, label: 'Register', color: 'text-accent' },
   { id: 'faqs', icon: HelpCircle, label: 'FAQs', color: 'text-primary' },
