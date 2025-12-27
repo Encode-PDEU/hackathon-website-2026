@@ -8,6 +8,7 @@ import { FAQSection } from '@/components/sections/FAQSection';
 import { ContactSection } from '@/components/sections/ContactSection';
 import { HowToParticipate } from '@/components/sections/HowToParticipate';
 import { HotbarNav } from '@/components/HotbarNav';
+import { PrizeSection } from '@/components/sections/PrizeSection';
 import { Crew } from '@/components/sections/CrewSection';
 interface IndexProps {
   isLoading?: boolean;
@@ -42,6 +43,7 @@ const Index = ({ isLoading = false }: IndexProps) => {
       <HeroSection />
       <BiomeSection />
       <TimelineSection />
+      <PrizeSection />
       <HowToParticipate />
       <Sponsors />
       <Crew />
