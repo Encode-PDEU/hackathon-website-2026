@@ -11,6 +11,8 @@ import { HotbarNav } from '@/components/HotbarNav';
 import { PrizeSection } from '@/components/sections/PrizeSection';
 import { Crew } from '@/components/sections/CrewSection';
 import { DimensionLayer } from '@/components/DimensionLayer';
+import { NetherPortal } from '@/components/separators/NetherPortal';
+import { EndPortal } from '@/components/separators/EndPortal';
 
 interface IndexProps {
   isLoading?: boolean;
@@ -49,15 +51,7 @@ const Index = ({ isLoading = false }: IndexProps) => {
           <Sponsors />
           <HowToParticipate />
         </div>
-        {/* Transition into Nether: Obsidian Portal */}
-        <div 
-          className="h-16 w-full" 
-          style={{ 
-            backgroundImage: 'url(/imgs/blocks/obsidian.png)',
-            backgroundSize: '64px',
-            imageRendering: 'pixelated'
-          }} 
-        />
+        <NetherPortal />
       </div>
 
       {/* LAYER 2: THE NETHER (Hot, Red, Dangerous) */}
@@ -68,11 +62,12 @@ const Index = ({ isLoading = false }: IndexProps) => {
       </DimensionLayer>
 
       {/* LAYER 3: THE END (Dark, Void, Loot) */}
+      <EndPortal />
       <DimensionLayer type="end">
         <PrizeSection /> {/* 3D Chest goes here */}
-        <RegistrationSection />
+        {/* <RegistrationSection /> */}
         <FAQSection />
-        <ContactSection />
+        {/* <ContactSection /> */}
       </DimensionLayer>
 
       {!isLoading && <HotbarNav activeSection={activeSection} />}

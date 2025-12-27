@@ -11,7 +11,7 @@ export function MinecraftPanel({ children, className, variant = 'default' }: Min
   return (
     <div 
       className={cn(
-        "relative p-6 text-black",
+        "relative p-6 text-black transition-transform duration-200 hover:rotate-1 hover:scale-105",
         className
       )}
       style={{

@@ -5,6 +5,7 @@ import { OrbitControls, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import { Coins, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useMinecraftSound } from '@/hooks/useMinecraftSound';
 
 // --- Configuration ---
 const lootBoxes = [
@@ -193,10 +194,38 @@ useGLTF.preload('/minecraft_chest.glb');
 // --- Main Section ---
 export function PrizeSection() {
   const [openId, setOpenId] = useState<string | null>(null);
+  const { play } = useMinecraftSound(0.45);
 
   const handleOpen = (id: string) => {
     setOpenId((prev) => (prev === id ? null : id));
   };
+
+  const PurpleParticles = () => (
+    <motion.div
+      aria-hidden
+      className="pointer-events-none absolute inset-0"
+      animate={{ opacity: [0.3, 0.5, 0.3] }}
+      transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
+    >
+      {[...Array(12)].map((_, i) => (
+        <motion.span
+          key={i}
+          className="absolute w-1.5 h-6 rounded-full"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            background: 'radial-gradient(circle, rgba(170,130,255,0.9) 0%, rgba(170,130,255,0) 70%)',
+            filter: 'blur(1px)',
+          }}
+          animate={{
+            y: [-10, 10, -10],
+            opacity: [0.2, 0.6, 0.2],
+          }}
+          transition={{ duration: 4 + i * 0.1, repeat: Infinity, ease: 'easeInOut' }}
+        />
+      ))}
+    </motion.div>
+  );
 
   return (
     <section id="prizes" className="relative py-16 sm:py-20 md:py-24 overflow-hidden">
@@ -221,6 +250,7 @@ export function PrizeSection() {
               <motion.button
                 key={box.id}
                 onClick={() => handleOpen(box.id)}
+                onMouseEnter={() => play()}
                 whileHover={{ scale: 1.05, y: -8 }}
                 whileTap={{ scale: 0.98 }}
                 className={cn(
@@ -242,6 +272,7 @@ export function PrizeSection() {
                   </div>
 
                   <div className="relative w-full h-80 sm:h-96 overflow-hidden rounded-lg">
+                    <PurpleParticles />
                     <Suspense
                       fallback={
                         <div className="absolute inset-0 flex items-center justify-center text-muted-foreground text-xs font-retro bg-muted/20">
@@ -256,6 +287,7 @@ export function PrizeSection() {
                         style={{ pointerEvents: 'auto' }}
                       >
                         <ambientLight intensity={0.4} />
+                        <pointLight position={[0, 2, 2]} intensity={2} color="#a020f0" />
                         <directionalLight position={[1, 1, 2]} intensity={1} />
                         <spotLight position={[-2, 3, 0]} angle={0.5} intensity={5} />
 
