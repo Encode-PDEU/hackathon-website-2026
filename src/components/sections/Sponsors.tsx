@@ -39,8 +39,6 @@ export const Sponsors = () => {
            to-[#0b1220]
            shadow-[inset_0_40px_80px_rgba(0,0,0,0.6)]"
         >
-            <BgParticles variant="grass" count={15} />
-
             <div className="max-w-6xl mx-auto relative z-10">
                 <h2 className="font-pixel text-4xl text-center text-white mb-4">
                     VILLAGE MARKET
@@ -54,7 +52,10 @@ export const Sponsors = () => {
                     {/* Trader */}
                     <div className="hidden lg:flex justify-center w-1/3 h-[500px]">
                         <Canvas shadows camera={{ position: [0, 0, 5], fov: 40 }}>
-                            <Stage environment="city" intensity={0.6}>
+                            <ambientLight intensity={1.8} />
+                            <pointLight position={[10, 10, 10]} intensity={1.5} />
+                            <spotLight position={[-5, 5, 5]} intensity={1} />
+                            <Stage environment={null} intensity={1} contactShadow={{ opacity: 0.5, blur: 2 }}>
                                 <VillagerModel isHovered={isHovered} mousePos={mousePos} />
                             </Stage>
                             <OrbitControls enableZoom={true} enablePan={false} maxPolarAngle={Math.PI / 2} minPolarAngle={Math.PI / 3} />
