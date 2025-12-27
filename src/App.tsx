@@ -10,7 +10,10 @@ import LoadingScreen from "./components/sections/LoadingScreen";
 import HUD from "./components/HUD";
 import { useEffect, useRef, useState } from "react";
 
+import LenisScroll from "./components/LenisScroll";
+
 const queryClient = new QueryClient();
+
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -39,6 +42,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
+        <LenisScroll />
         <Toaster />
         <Sonner />
         {isLoading && (
