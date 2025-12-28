@@ -8,41 +8,19 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import LoadingScreen from "./components/sections/LoadingScreen";
 import HUD from "./components/HUD";
-import { useEffect, useRef, useState } from "react";
-
-import LenisScroll from "./components/LenisScroll";
+import JukeBox from "./components/JukeBox";
+import { useState } from "react";
 
 const queryClient = new QueryClient();
 
-
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const audioRef = useRef(null);
-  const [userInteracted, setUserInteracted] = useState(false);
 
-  useEffect(() => {
-    const audio = audioRef.current;
 
-    const tryPlay = () => {
-      audio.muted = false;
-      audio.play().catch(() => { });
-    };
-
-    if (audio) {
-      audio.play().catch(() => {
-        // Browser blocked autoplay
-        window.addEventListener("click", () => {
-          setUserInteracted(true);
-          tryPlay();
-        }, { once: true });
-      });
-    }
-  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <LenisScroll />
         <Toaster />
         <Sonner />
         {isLoading && (
@@ -58,15 +36,7 @@ const App = () => {
         )}
         <PixelCursor />
         {!isLoading && <HUD />}
-        <audio
-          ref={audioRef}
-          src="/minecraft.mp3"
-          autoPlay
-          loop
-          muted={!userInteracted}
-          playsInline
-          preload="auto"
-        />
+        {!isLoading && <JukeBox />}
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index isLoading={isLoading} />} />
