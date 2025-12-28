@@ -2,16 +2,12 @@ import { useState, useEffect, useRef } from 'react';
 
 const JukeBox = () => {
     const [isPlaying, setIsPlaying] = useState(false);
-    // Use a ref to keep the audio instance persistent without triggering re-renders
     const audioInstance = useRef<HTMLAudioElement | null>(null);
 
     useEffect(() => {
-        // Initialize audio instance on mount
         try {
             audioInstance.current = new Audio("/minecraft2.mp3");
             audioInstance.current.loop = true;
-
-            // Preload
             audioInstance.current.load();
         } catch (e) {
             console.error("Failed to initialize audio:", e);
@@ -31,22 +27,17 @@ const JukeBox = () => {
         audio.addEventListener('error', handleError);
 
         return () => {
-            if (audio) {
-                audio.pause();
-                audio.removeEventListener('ended', handleEnded);
-                audio.removeEventListener('pause', handlePause);
-                audio.removeEventListener('play', handlePlay);
-                audio.removeEventListener('error', handleError);
-            }
+            audio.pause();
+            audio.removeEventListener('ended', handleEnded);
+            audio.removeEventListener('pause', handlePause);
+            audio.removeEventListener('play', handlePlay);
+            audio.removeEventListener('error', handleError);
         };
     }, []);
 
     const togglePlay = async () => {
         const audio = audioInstance.current;
-        if (!audio) {
-            console.error("Audio instance not initialized");
-            return;
-        }
+        if (!audio) return;
 
         if (isPlaying) {
             audio.pause();
@@ -55,12 +46,6 @@ const JukeBox = () => {
                 await audio.play();
             } catch (error) {
                 console.error("JukeBox playback failed:", error);
-
-                // Detailed error info
-                if (error instanceof Error) {
-                    console.error("Error name:", error.name);
-                    console.error("Error message:", error.message);
-                }
             }
         }
     };
@@ -73,14 +58,21 @@ const JukeBox = () => {
             title={isPlaying ? 'Stop Music' : 'Play Music'}
             className="
         fixed
-        bottom-4
-        left-1/2
-        -translate-x-[340px]
         z-[60]
-        cursor-pointer
         transition-transform
         hover:scale-110
         active:scale-95
+
+        /* Mobile: pushed outside viewport to avoid overlap */
+        top-16
+        right-[-24px]
+
+        /* Laptop & wide screens: original placement */
+        sm:top-auto
+        sm:right-auto
+        sm:bottom-4
+        sm:left-1/2
+        sm:-translate-x-[340px]
       "
         >
             <img
@@ -98,7 +90,6 @@ const JukeBox = () => {
         `}
             />
         </div>
-
     );
 };
 

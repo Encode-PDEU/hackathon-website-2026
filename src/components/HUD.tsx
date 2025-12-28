@@ -1,47 +1,98 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
-// Pixel art hearts and hunger using CSS/SVG can be done here, or emojis for speed/style
-const HEART = "❤️";
-const HUNGER = "🍖";
+const HEART = '❤️';
+const HUNGER = '🍖';
 
 export default function HUD() {
-    return (
-        <div className="fixed inset-0 pointer-events-none z-40 p-4 flex flex-col justify-end pb-24">
-            {/* Quest Log Book (Pointer events re-enabled inside component or wrapper) */}
-            {/* <div className="pointer-events-auto">
-                <QuestBook />
-            </div> */}
+  const [slots, setSlots] = useState(5);
+  const [isDesktop, setIsDesktop] = useState(false);
 
-            {/* Top Left: Hearts? Or Bottom Left? Usually Bottom above hotbar.
-                 User said "in the corners". I will put them bottom left and bottom right. 
-             */}
+  useEffect(() => {
+    const updateHUD = () => {
+      const w = window.innerWidth;
 
-            <div className="absolute bottom-5 left-5 flex gap-1">
-                {[...Array(10)].map((_, i) => (
-                    <motion.div
-                        key={`heart-${i}`}
-                        className="text-2xl filter drop-shadow-md"
-                        animate={{ scale: [1, 1.2, 1] }}
-                        transition={{ duration: 0.5, delay: i * 0.1, repeat: Infinity, repeatDelay: 3 }}
-                    >
-                        {HEART}
-                    </motion.div>
-                ))}
-            </div>
+      if (w < 400) {
+        setSlots(4);          // 📱 small mobile
+        setIsDesktop(false);
+      } else if (w < 768) {
+        setSlots(5);          // 📱 mobile / tablet
+        setIsDesktop(false);
+      } else {
+        setSlots(10);         // 💻 laptop / desktop
+        setIsDesktop(true);
+      }
+    };
 
-            <div className="absolute bottom-5 right-5 flex gap-1 transform scale-x-[-1]">
-                {[...Array(10)].map((_, i) => (
-                    <motion.div
-                        key={`hunger-${i}`}
-                        className="text-2xl filter drop-shadow-md"
-                    >
-                        {HUNGER}
-                    </motion.div>
-                ))}
-            </div>
+    updateHUD();
+    window.addEventListener('resize', updateHUD);
+    return () => window.removeEventListener('resize', updateHUD);
+  }, []);
+
+  return (
+    <div
+      className={`
+        fixed left-0 right-0 z-40 pointer-events-none
+        flex items-end
+        px-[clamp(0.75rem,3vw,1.5rem)]
+        ${isDesktop
+          ? 'bottom-0 pb-[2rem]'   // 💻 DOWN with hotbar
+          : 'bottom-0 pb-[7.5rem]'   // 📱 ABOVE hotbar
+        }
+      `}
+    >
+      {/* ❤️ LEFT: Health */}
+      <div className="flex flex-1 justify-start">
+        <div className="flex gap-[clamp(0.25rem,1vw,0.45rem)]">
+          {[...Array(slots)].map((_, i) => (
+            <motion.span
+              key={`heart-${i}`}
+              className="
+                select-none
+                drop-shadow-md
+                text-[clamp(1rem,4vw,1.4rem)]
+              "
+              animate={{ scale: [1, 1.15, 1] }}
+              transition={{
+                duration: 0.6,
+                delay: i * 0.08,
+                repeat: Infinity,
+                repeatDelay: 3,
+              }}
+            >
+              {HEART}
+            </motion.span>
+          ))}
         </div>
-    );
+      </div>
+
+      {/* 🛣️ CENTER GAP */}
+      <div
+        className="
+          flex-shrink-0
+          w-[clamp(2.5rem,8vw,6rem)]
+        "
+      />
+
+      {/* 🍖 RIGHT: Hunger */}
+      <div className="flex flex-1 justify-end">
+        <div className="flex gap-[clamp(0.25rem,1vw,0.45rem)] scale-x-[-1]">
+          {[...Array(slots)].map((_, i) => (
+            <span
+              key={`hunger-${i}`}
+              className="
+                select-none
+                drop-shadow-md
+                text-[clamp(1rem,4vw,1.4rem)]
+              "
+            >
+              {HUNGER}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 }
