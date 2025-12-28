@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
 import { Calendar, Rocket, Trophy, Award } from 'lucide-react';
+import villegeBackground from '../../assets/Backgrounds/villege.jpg';
+import hangingSign from '../../../public/hanging-sign-removebg-preview.png';
 
 const timelineEvents = [
   {
@@ -32,7 +34,13 @@ export function TimelineSection() {
   return (
     <section
       id="timeline"
-      className="relative py-40 px-4 bg-[#000000] overflow-hidden select-none"
+      className="relative py-40 px-4 overflow-hidden select-none"
+      style={{
+        backgroundImage: `url(${villegeBackground})`,
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+      }}
     >
       {/* Vignette */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(0,0,0,0),_rgba(0,0,0,0.8)_70%)] pointer-events-none" />
@@ -61,12 +69,9 @@ export function TimelineSection() {
         {/* SPINE */}
         <div
           className="
-            absolute left-1/2 top-[220px] bottom-0 w-[3px]
+            absolute left-1/2 top-[220px] bottom-0 w-[12px]
             -translate-x-1/2
-            bg-gradient-to-b
-            from-[#f5c76b]
-            to-[#7a522d]
-            opacity-90
+            bg-[#eacb4a]
           "
         />
 
@@ -99,10 +104,10 @@ export function TimelineSection() {
                   style={{ transformOrigin: 'top center' }}
                 >
                   <img
-                    src="/hanging-sign.png"
+                    src={hangingSign}
                     alt="Timeline sign"
                     draggable={false}
-                    className="w-full h-auto select-none pointer-events-none"
+                    className="w-full h-auto select-none pointer-events-none mix-blend-screen"
                   />
 
                   {/*FIXED TEXT POSITION */}

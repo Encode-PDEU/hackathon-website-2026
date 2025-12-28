@@ -9,7 +9,8 @@ import NotFound from "./pages/NotFound";
 import LoadingScreen from "./components/sections/LoadingScreen";
 import HUD from "./components/HUD";
 import JukeBox from "./components/JukeBox";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import LenisScroll from "./components/LenisScroll";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const App = () => {
       <TooltipProvider>
         <Toaster />
         <Sonner />
+        <LenisScroll />
         {isLoading && (
           <div
             className="fixed inset-0 z-40"
