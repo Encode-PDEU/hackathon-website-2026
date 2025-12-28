@@ -34,21 +34,19 @@ export function TimelineSection() {
   return (
     <section
       id="timeline"
-      className="relative py-40 px-4 overflow-hidden select-none"
+      className="relative pb-40 pt-60 px-4 overflow-hidden select-none -mt-20 z-10"
       style={{
         backgroundImage: `url(${villegeBackground})`,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
+        clipPath: 'polygon(0% 20px, 5% 20px, 5% 0px, 10% 0px, 10% 30px, 15% 30px, 15% 10px, 20% 10px, 20% 40px, 25% 40px, 25% 15px, 30% 15px, 30% 35px, 35% 35px, 35% 5px, 40% 5px, 40% 45px, 45% 45px, 45% 20px, 50% 20px, 50% 50px, 55% 50px, 55% 10px, 60% 10px, 60% 35px, 65% 35px, 65% 5px, 70% 5px, 70% 40px, 75% 40px, 75% 15px, 80% 15px, 80% 45px, 85% 45px, 85% 25px, 90% 25px, 90% 55px, 95% 55px, 95% 10px, 100% 10px, 100% 100%, 0% 100%)'
       }}
     >
-      {/* Vignette */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(0,0,0,0),_rgba(0,0,0,0.8)_70%)] pointer-events-none" />
-
 
       <div className="relative max-w-5xl mx-auto">
 
-        {/* HEADER */}
         <div className="text-center mb-32">
           <h2 className="text-4xl font-pixel text-white mb-3 tracking-wider">
             EVENT <span className="text-yellow-400">TIMELINE</span>
@@ -66,7 +64,6 @@ export function TimelineSection() {
           </div>
         </div>
 
-        {/* SPINE */}
         <div
           className="
             absolute left-1/2 top-[220px] bottom-0 w-[12px]
@@ -75,7 +72,6 @@ export function TimelineSection() {
           "
         />
 
-        {/* EVENTS */}
         <div className="relative z-10 flex flex-col items-center gap-28">
           {timelineEvents.map((event, index) => {
             const Icon = event.icon;
@@ -89,10 +85,8 @@ export function TimelineSection() {
                 transition={{ duration: 0.6, delay: index * 0.12 }}
                 className="relative flex justify-center w-full"
               >
-                {/* Chain */}
                 <div className="absolute -top-24 left-1/2 h-24 w-[2px] bg-[#5a3e26] -translate-x-1/2" />
 
-                {/* SIGN */}
                 <motion.div
                   className="relative w-[440px]"
                   animate={{ rotate: [-1.2, 1.2, -1.2] }}
@@ -110,7 +104,6 @@ export function TimelineSection() {
                     className="w-full h-auto select-none pointer-events-none mix-blend-screen"
                   />
 
-                  {/*FIXED TEXT POSITION */}
                   <div className="absolute left-0 right-0 top-[46%] flex flex-col items-center px-12 text-center pointer-events-none">
                     <div className="flex items-center gap-3 mb-4">
                       <Icon className="w-7 h-7 text-[#2a1a0f]" />
@@ -128,8 +121,6 @@ export function TimelineSection() {
                     </p>
                   </div>
                 </motion.div>
-
-                {/* Node */}
               </motion.div>
             );
           })}

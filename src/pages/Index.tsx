@@ -10,6 +10,8 @@ import { HowToParticipate } from '@/components/sections/HowToParticipate';
 import { HotbarNav } from '@/components/HotbarNav';
 import { PrizeSection } from '@/components/sections/PrizeSection';
 import { Crew } from '@/components/sections/CrewSection';
+import { NetherFogDivider } from '@/components/sections/NetherFogDivider';
+import { PortalDivider } from '@/components/sections/PortalDivider';
 interface IndexProps {
   isLoading?: boolean;
 }
@@ -41,9 +43,11 @@ const Index = ({ isLoading = false }: IndexProps) => {
   return (
     <div className="min-h-screen bg-background relative scanlines">
       <HeroSection />
+      <NetherFogDivider />
       <BiomeSection />
       <TimelineSection />
       <PrizeSection />
+      <PortalDivider />
       <HowToParticipate />
       <Sponsors />
       <Crew />
