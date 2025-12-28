@@ -163,7 +163,7 @@ export function ContactSection() {
           viewport={{ once: true }}
           className="mt-12"
         >
-          <div className="bg-card/50 pixel-border p-6 text-center">
+          {/* <div className="bg-card/50 pixel-border p-6 text-center">
             <h3 className="font-pixel text-sm text-muted-foreground mb-6">⭐ OUR SPONSORS ⭐</h3>
             <div className="flex flex-wrap justify-center gap-4 sm:gap-8">
               {sponsors.map((sponsor, index) => (
@@ -180,7 +180,7 @@ export function ContactSection() {
                 </motion.div>
               ))}
             </div>
-          </div>
+          </div> */}
         </motion.div>
 
         {/* Footer decoration */}
