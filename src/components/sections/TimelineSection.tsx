@@ -19,6 +19,7 @@ export function TimelineSection() {
         backgroundImage: `url(${villegeBackground})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
+         clipPath: 'polygon(0% 20px, 5% 20px, 5% 0px, 10% 0px, 10% 30px, 15% 30px, 15% 10px, 20% 10px, 20% 40px, 25% 40px, 25% 15px, 30% 15px, 30% 35px, 35% 35px, 35% 5px, 40% 5px, 40% 45px, 45% 45px, 45% 20px, 50% 20px, 50% 50px, 55% 50px, 55% 10px, 60% 10px, 60% 35px, 65% 35px, 65% 5px, 70% 5px, 70% 40px, 75% 40px, 75% 15px, 80% 15px, 80% 45px, 85% 45px, 85% 25px, 90% 25px, 90% 55px, 95% 55px, 95% 10px, 100% 10px, 100% 100%, 0% 100%)'
       }}
     >
       <div className="absolute inset-0 bg-black/70 pointer-events-none" />
@@ -74,7 +75,6 @@ export function TimelineSection() {
                     className="w-full h-auto select-none pointer-events-none mix-blend-screen"
                   />
 
-                  {/* ⬇️ ONLY CHANGE IS HERE */}
                   <div className="absolute left-0 right-0 top-[42%] sm:top-[46%] px-6 sm:px-12 text-center pointer-events-none">
                     <div className="flex items-center justify-center gap-2 sm:gap-3 mb-2 sm:mb-4">
                       <Icon className="w-5 h-5 sm:w-7 sm:h-7 text-[#2a1a0f]" />
