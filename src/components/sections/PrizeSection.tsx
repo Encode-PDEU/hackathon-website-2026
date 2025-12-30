@@ -32,59 +32,6 @@ const lootBoxes = [
 ];
 
 
-function BackGlow({ color, active }: { color: string, active: boolean }) {
-  const texture = useMemo(() => {
-    const canvas = document.createElement('canvas');
-    canvas.width = 128;
-    canvas.height = 128;
-    const ctx = canvas.getContext('2d');
-    if (ctx) {
-      const gradient = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
-      gradient.addColorStop(0, color);
-
-      gradient.addColorStop(0.2, color); // Reduced core size for tighter glow
-      gradient.addColorStop(0.8, 'rgba(0,0,0,0)'); // Fade out completely before edge
-
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, 128, 128);
-    }
-    const tex = new THREE.CanvasTexture(canvas);
-    // Ensure no wrapping artifacts at edges
-    tex.wrapS = THREE.ClampToEdgeWrapping;
-    tex.wrapT = THREE.ClampToEdgeWrapping;
-    return tex;
-  }, [color]);
-
-  const meshRef = useRef<THREE.Mesh>(null);
-
-  useEffect(() => {
-    if (meshRef.current) {
-      gsap.to(meshRef.current.scale, {
-        x: active ? 1 : 0,
-        y: active ? 1 : 0,
-        duration: 0.5,
-        ease: "back.out(1.7)"
-      });
-      gsap.to(meshRef.current.material, {
-        opacity: active ? 0.3 : 0,
-        duration: 0.5
-      });
-    }
-  }, [active]);
-
-  return (
-    <mesh ref={meshRef} position={[0, -2, -3]} scale={[0, 0, 0]}>
-      <planeGeometry args={[8, 8]} />
-      <meshBasicMaterial
-        map={texture}
-        transparent={true}
-        opacity={0}
-        depthWrite={false}
-        blending={THREE.AdditiveBlending}
-      />
-    </mesh>
-  );
-}
 
 function LootParticle({ type, color, offset, speed }: { type: 'coin' | 'gem' | 'diamond', color: string, offset: number, speed: number }) {
   const meshRef = useRef<THREE.Mesh>(null);
@@ -405,13 +352,16 @@ export function PrizeSection() {
               const isOpen = openId === box.id;
 
               return (
-                <motion.button
+                <motion.div
                   key={box.id}
                   onClick={() => handleOpen(box.id)}
                   whileHover={{ scale: 1.05, y: -8 }}
                   whileTap={{ scale: 0.98 }}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleOpen(box.id); }}
                   className={cn(
-                    'group relative h-full text-left focus:outline-none rounded-none',
+                    'group relative h-full text-left cursor-pointer',
                     'flex flex-col items-center gap-4 transition-all duration-300',
                   )}
                 >
@@ -428,11 +378,21 @@ export function PrizeSection() {
                       </div>
                     </div>
 
-                    <div className="relative w-full h-80 sm:h-96 overflow-hidden rounded-lg">
-                      {/* 
-                            ACCESSIBILITY & OUTLINE FIX: 
-                            Added outline-none to canvas parent and removed default tap highlights 
-                        */}
+                    <div className="relative w-full h-80 sm:h-96 overflow-hidden">
+                      <AnimatePresence>
+                        {isOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.8 }}
+                            className="absolute inset-0 pointer-events-none"
+                            style={{
+                              background: `radial-gradient(circle at center, ${box.glowColor}44 0%, transparent 70%)`,
+                              zIndex: 0,
+                            }}
+                          />
+                        )}
+                      </AnimatePresence>
                       <Suspense
                         fallback={
                           <div className="absolute inset-0 flex items-center justify-center text-muted-foreground text-xs font-retro bg-muted/20">
@@ -444,11 +404,29 @@ export function PrizeSection() {
                           gl={{ alpha: true, antialias: true }}
                           dpr={[1, 1.6]}
                           camera={{ position: [-0.2, 0.6, 4.2], fov: 45 }}
-                          style={{ pointerEvents: 'auto', outline: 'none' }}
-                          className="focus:outline-none touch-none"
-                          tabIndex={-1}
+                          style={{ pointerEvents: 'auto', position: 'relative', zIndex: 1 }}
                         >
-                          <ChestScene isOpen={isOpen} glowColor={box.glowColor} />
+                          <ambientLight intensity={0.4} />
+                          <directionalLight position={[1, 1, 2]} intensity={1} />
+                          <spotLight position={[-2, 3, 0]} angle={0.5} intensity={5} />
+
+                          {isOpen && (
+                            <LootFountain active={isOpen} color={box.glowColor} />
+                          )}
+
+                          <group position={[0, -0.05, 0]}>
+                            <ChestModel isOpen={isOpen} />
+                          </group>
+
+                          <OrbitControls
+                            enablePan={false}
+                            enableZoom={false}
+                            enableRotate={true}
+                            autoRotateSpeed={0.6}
+                            minPolarAngle={0.6}
+                            maxPolarAngle={1.3}
+                            target={[0, -0.8, 0]}
+                          />
                         </Canvas>
                       </Suspense>
                     </div>
@@ -478,7 +456,7 @@ export function PrizeSection() {
                       )}
                     </AnimatePresence>
                   </motion.div>
-                </motion.button>
+                </motion.div>
               );
             })}
           </div>
