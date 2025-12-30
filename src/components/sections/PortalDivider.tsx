@@ -16,13 +16,29 @@ export function PortalDivider() {
             duration: `${3 + Math.random() * 4}s`,
             delay: `${Math.random() * 2}s`,
             size: Math.random() > 0.6 ? 12 : 8,
-            color: Math.random() > 0.5 ? '#FFD700' : '#FDB931', 
+            color: Math.random() > 0.5 ? '#FFD700' : '#FDB931',
         }));
         setParticles(newParticles);
     }, []);
 
     return (
         <div className="relative w-full h-16 -mt-10 overflow-visible pointer-events-none z-30">
+            {/* Dither effect with gradient fade */}
+            <div
+                className="absolute inset-0"
+                style={{
+                    backgroundImage: `
+                        linear-gradient(45deg, hsl(var(--background)) 25%, transparent 25%), 
+                        linear-gradient(-45deg, hsl(var(--background)) 25%, transparent 25%), 
+                        linear-gradient(45deg, transparent 75%, hsl(var(--background)) 75%), 
+                        linear-gradient(-45deg, transparent 75%, hsl(var(--background)) 75%)
+                    `,
+                    backgroundSize: '20px 20px',
+                    backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px',
+                    maskImage: 'linear-gradient(to bottom, transparent, black)',
+                    WebkitMaskImage: 'linear-gradient(to bottom, transparent, black)',
+                }}
+            />
             <style>
                 {`
           @keyframes floatUp {
@@ -45,7 +61,7 @@ export function PortalDivider() {
                         backgroundColor: p.color,
                         animation: `floatUp ${p.duration} infinite linear`,
                         animationDelay: p.delay,
-                        opacity: 0, 
+                        opacity: 0,
                     }}
                 />
             ))}
