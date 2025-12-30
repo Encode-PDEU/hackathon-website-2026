@@ -1,11 +1,11 @@
-import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
+import { Suspense, useEffect, useMemo, useRef, useState, useLayoutEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import { Coins, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
-
+import gsap from 'gsap';
 
 const lootBoxes = [
   {
@@ -116,34 +116,99 @@ function LootFountain({ active, color }: { active: boolean, color: string }) {
   return <group>{particles}</group>;
 }
 
-function ChestModel({ isOpen }: { isOpen: boolean }) {
+interface ChestModelProps {
+  isOpen: boolean;
+  onEffectsTrigger: (show: boolean) => void;
+}
+
+function ChestModel({ isOpen, onEffectsTrigger }: ChestModelProps) {
   const { scene } = useGLTF('/minecraft_chest.glb');
   const chest = useMemo(() => scene.clone(true), [scene]);
   const group = useRef<THREE.Group>(null);
   const lidRef = useRef<THREE.Object3D | null>(null);
+  const ctxRef = useRef<gsap.Context>();
 
+  // Initial setup
   useEffect(() => {
     chest.traverse((obj) => {
       obj.castShadow = true;
       obj.receiveShadow = true;
       if (!lidRef.current && obj.name.toLowerCase().includes('lid')) {
         lidRef.current = obj;
+        // Start closed
         obj.rotation.x = -3.14;
       }
     });
   }, [chest]);
 
-  useFrame((_, delta) => {
-    if (!group.current) return;
-    group.current.rotation.x = THREE.MathUtils.damp(group.current.rotation.x, isOpen ? 0.25 : 0, 6, delta);
-    group.current.rotation.y = THREE.MathUtils.damp(group.current.rotation.y, isOpen ? -0.25 : -0.15, 5, delta);
-    const targetY = isOpen ? -1.1 : -1.3;
-    group.current.position.y = THREE.MathUtils.damp(group.current.position.y, targetY, 6, delta);
+  // Setup GSAP Context ONCE
+  useLayoutEffect(() => {
+    ctxRef.current = gsap.context(() => { }, group);
+    return () => ctxRef.current?.revert();
+  }, []); // Empty dependency array = create once
 
-    if (lidRef.current) {
-      lidRef.current.rotation.x = THREE.MathUtils.damp(lidRef.current.rotation.x, isOpen ? -0.5 : -3.14, 9, delta);
-    }
-  });
+  // Trigger Animations on isOpen change
+  useEffect(() => {
+    if (!ctxRef.current || !lidRef.current || !group.current) return;
+
+    ctxRef.current.add(() => {
+      const tl = gsap.timeline();
+
+      if (isOpen) {
+        // --- OPEN SEQUENCE ---
+
+        // 1. Hop / Anticipation
+        tl.to(group.current!.position, {
+          y: -1.1,
+          duration: 0.2,
+          ease: "power2.out"
+        }, 0);
+
+        tl.to(group.current!.rotation, {
+          x: 0.25,
+          y: -0.25,
+          duration: 0.5,
+          ease: "power2.out"
+        }, 0);
+
+        // 2. Lid Snap Open
+        tl.to(lidRef.current!.rotation, {
+          x: -0.5,
+          duration: 1.2,
+          ease: "elastic.out(1, 0.5)",
+          onStart: () => {
+            // Delay effect slightly to match the physical "pop"
+            setTimeout(() => onEffectsTrigger(true), 150);
+          }
+        }, 0.1);
+
+      } else {
+        // --- CLOSE SEQUENCE ---
+        onEffectsTrigger(false);
+
+        // 1. Lid Close - Heavy Thud
+        tl.to(lidRef.current!.rotation, {
+          x: -3.14,
+          duration: 1.0,
+          ease: "bounce.out"
+        }, 0);
+
+        // 2. Body Settle - Synced with Lid
+        tl.to(group.current!.position, {
+          y: -1.3,
+          duration: 1.0,
+          ease: "power2.inOut"
+        }, 0);
+
+        tl.to(group.current!.rotation, {
+          x: 0,
+          y: -0.15,
+          duration: 1.0,
+          ease: "power2.inOut"
+        }, 0);
+      }
+    });
+  }, [isOpen]);
 
   return (
     <group ref={group} dispose={null} scale={1.5} rotation={[0, -0.2, 0]} position={[0, -1.3, 0]}>
@@ -153,6 +218,44 @@ function ChestModel({ isOpen }: { isOpen: boolean }) {
 }
 
 useGLTF.preload('/minecraft_chest.glb');
+
+// Wrapper Component to handle local scene state
+function ChestScene({ isOpen, glowColor }: { isOpen: boolean, glowColor: string }) {
+  const [showEffects, setShowEffects] = useState(false);
+
+  // Reset effects if closed from parent
+  useEffect(() => {
+    if (!isOpen) setShowEffects(false);
+  }, [isOpen]);
+
+  return (
+    <>
+      <ambientLight intensity={0.4} />
+      <directionalLight position={[1, 1, 2]} intensity={1} />
+      <spotLight position={[-2, 3, 0]} angle={0.5} intensity={5} />
+
+      <BackGlow color={glowColor} active={showEffects} />
+      <LootFountain active={showEffects} color={glowColor} />
+
+      <group position={[0, -0.05, 0]}>
+        <ChestModel
+          isOpen={isOpen}
+          onEffectsTrigger={setShowEffects}
+        />
+      </group>
+
+      <OrbitControls
+        enablePan={false}
+        enableZoom={false}
+        enableRotate={true}
+        autoRotateSpeed={0.6}
+        minPolarAngle={0.6}
+        maxPolarAngle={1.3}
+        target={[0, -0.8, 0]}
+      />
+    </>
+  );
+}
 
 // --- 3. FALLING PARTICLES (Gold Squares) ---
 function FallingParticles() {
